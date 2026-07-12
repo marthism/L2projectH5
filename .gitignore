@@ -1,0 +1,6 @@
+/bin/
+
+# Credentials - do not version real DB passwords or the gameserver auth secret
+/dist/game/config/Database.ini
+/dist/game/config/hexid.txt
+/dist/login/config/Database.ini

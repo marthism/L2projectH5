@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../xsd/skills.xsd">
+	<!-- Tattoo of Fighter - passive bonus granted while the tattoo is equipped. -->
+	<skill id="39600" levels="1" name="Tattoo of Fighter I">
+		<icon>icon.skill1068</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="pAtk">1.05</mul>
+				<mul stat="pAtkSpd">1.05</mul>
+				<add stat="runSpd">22</add>
+				<add stat="accCombat">10</add>
+				<add stat="STR">1</add>
+				<add stat="DEX">1</add>
+				<add stat="CON">1</add>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="39601" levels="1" name="Tattoo of Fighter II">
+		<icon>icon.skill1068</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="pAtk">1.06</mul>
+				<mul stat="pAtkSpd">1.06</mul>
+				<add stat="runSpd">24</add>
+				<add stat="accCombat">13</add>
+				<add stat="STR">2</add>
+				<add stat="DEX">2</add>
+				<add stat="CON">2</add>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="39602" levels="1" name="Tattoo of Fighter III">
+		<icon>icon.skill1068</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="pAtk">1.08</mul>
+				<mul stat="pAtkSpd">1.08</mul>
+				<add stat="runSpd">26</add>
+				<add stat="accCombat">16</add>
+				<add stat="STR">3</add>
+				<add stat="DEX">3</add>
+				<add stat="CON">3</add>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="39603" levels="1" name="Tattoo of Fighter IV">
+		<icon>icon.skill1068</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="pAtk">1.11</mul>
+				<mul stat="pAtkSpd">1.11</mul>
+				<add stat="runSpd">28</add>
+				<add stat="accCombat">19</add>
+				<add stat="STR">4</add>
+				<add stat="DEX">4</add>
+				<add stat="CON">4</add>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="39604" levels="1" name="Tattoo of Fighter V">
+		<icon>icon.skill1068</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="pAtk">1.15</mul>
+				<mul stat="pAtkSpd">1.15</mul>
+				<add stat="runSpd">30</add>
+				<add stat="accCombat">22</add>
+				<add stat="STR">5</add>
+				<add stat="DEX">5</add>
+				<add stat="CON">5</add>
+			</effect>
+		</effects>
+	</skill>
+
+	<!-- Tattoo of Mage - passive bonus granted while the tattoo is equipped. -->
+	<skill id="39610" levels="1" name="Tattoo of Mage I">
+		<icon>icon.skill1059</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="mAtk">1.05</mul>
+				<mul stat="mAtkSpd">1.05</mul>
+				<add stat="runSpd">22</add>
+				<add stat="WIT">1</add>
+				<add stat="INT">1</add>
+				<add stat="MEN">1</add>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="39611" levels="1" name="Tattoo of Mage II">
+		<icon>icon.skill1059</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="mAtk">1.06</mul>
+				<mul stat="mAtkSpd">1.06</mul>
+				<add stat="runSpd">24</add>
+				<add stat="WIT">2</add>
+				<add stat="INT">2</add>
+				<add stat="MEN">2</add>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="39612" levels="1" name="Tattoo of Mage III">
+		<icon>icon.skill1059</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="mAtk">1.08</mul>
+				<mul stat="mAtkSpd">1.08</mul>
+				<add stat="runSpd">26</add>
+				<add stat="WIT">3</add>
+				<add stat="INT">3</add>
+				<add stat="MEN">3</add>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="39613" levels="1" name="Tattoo of Mage IV">
+		<icon>icon.skill1059</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="mAtk">1.11</mul>
+				<mul stat="mAtkSpd">1.11</mul>
+				<add stat="runSpd">28</add>
+				<add stat="WIT">4</add>
+				<add stat="INT">4</add>
+				<add stat="MEN">4</add>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="39614" levels="1" name="Tattoo of Mage V">
+		<icon>icon.skill1059</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="mAtk">1.15</mul>
+				<mul stat="mAtkSpd">1.15</mul>
+				<add stat="runSpd">30</add>
+				<add stat="WIT">5</add>
+				<add stat="INT">5</add>
+				<add stat="MEN">5</add>
+			</effect>
+		</effects>
+	</skill>
+</list>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xsd/SchemeBufferSkills.xsd">
+	<category type="Prophet">
+		<buff id="1035" level="130" price="0" desc="Increases resistance to mental attacks." />
+		<buff id="1036" level="130" price="0" desc="Increases M. Def." />
+		<buff id="1040" level="130" price="0" desc="Increases P. Def." />
+		<buff id="1044" level="130" price="0" desc="Temporarily increases HP recovery." />
+		<buff id="1045" level="130" price="0" desc="Increases maximum HP." />
+		<buff id="1048" level="130" price="0" desc="Increases maximum MP." />
+		<buff id="1062" level="130" price="0" desc="Reduces def. and increase atk. power." />
+		<buff id="1068" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="1077" level="130" price="0" desc="Increases critical attack rate." />
+		<buff id="1078" level="130" price="0" desc="Increases magic concentration." />
+		<buff id="1085" level="130" price="0" desc="Increases Casting Spd." />
+		<buff id="1086" level="130" price="0" desc="Increases Atk. Spd." />
+		<buff id="1240" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="1242" level="130" price="0" desc="Increases critical attack." />
+		<buff id="1243" level="130" price="0" desc="Increases shield defense rate." />
+		<buff id="1388" level="230" price="0" desc="Increases P. Atk." />
+		<buff id="1389" level="230" price="0" desc="Increases P. Def." />
+		<buff id="1393" level="130" price="0" desc="Increases resistance to dark attacks." />
+		<buff id="1392" level="130" price="0" desc="Increases resistance to sacred attacks." />
+		<buff id="1033" level="330" price="0" desc="Increases resistance to poison" />
+		<buff id="1182" level="330" price="0" desc="Increases tolerance to attack by water" />
+		<buff id="1189" level="330" price="0" desc="Increases resistance to attack by wind" />
+		<buff id="1191" level="330" price="0" desc="increases resistance to attacks by fire" />
+		<buff id="1032" level="330" price="0" desc="increases resistance to bleeding" />
+		<buff id="1499" level="1" price="0" desc="Increases P. Atk. and P. Def. by 15% for 40 min." />
+		<buff id="1501" level="1" price="0" desc="Increases Max HP and Max MP by 35% for 40 min." />
+	</category>
+	<category type="Warcryer">
+		<buff id="1390" level="230" price="0" desc="Increases P. Atk." />
+		<buff id="1391" level="230" price="0" desc="Increases P. Def." />
+		<buff id="1002" level="130" price="0" desc="Increases Casting Spd." />
+		<buff id="1251" level="130" price="0" desc="Increases Atk. Spd." />
+		<buff id="1252" level="130" price="0" desc="Increases Evasion." />
+		<buff id="1253" level="130" price="0" desc="Increases critical attack." />
+		<buff id="1284" level="130" price="0" desc="Reflects damage received." />
+		<buff id="1006" level="130" price="0" desc="Increases M. Def." />
+		<buff id="1007" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="1009" level="130" price="0" desc="Increases P. Def." />
+		<buff id="1310" level="130" price="0" desc="Restores HP using inflicted damage." />
+		<buff id="1309" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="1308" level="130" price="0" desc="Increases critical attack rate." />
+	</category>
+	<category type="Overlord">
+		<buff id="1004" level="130" price="0" desc="Increases Casting Spd. by 15%." />
+		<buff id="1005" level="130" price="0" desc="Increases P. Def. by 8%." />
+		<buff id="1008" level="130" price="0" desc="Increases M. Def. by 15%." />
+		<buff id="1249" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="1250" level="130" price="0" desc="Increases shield defense by 30%." />
+		<buff id="1260" level="130" price="0" desc="Increases Evasion." />
+		<buff id="1261" level="130" price="0" desc="Reduces def. and increases atk. power." />
+		<buff id="1536" level="1" price="0" desc="Increases P. Atk. and P. Def. by 15%." />
+		<buff id="1537" level="1" price="0" desc="Increases critical rate and critical damage." />
+		<buff id="1538" level="1" price="0" desc="Increases Max HP and Max MP by 35%." />
+		<buff id="1563" level="2" price="0" desc="Increases Atk. Spd. by 15%." />
+		<buff id="1364" level="1" price="0" desc="Increases Accuracy and decreases critical damage received." />
+		<buff id="1365" level="1" price="0" desc="Increases M. Atk. by 75% and M. Def. by 30%." />
+		<buff id="1414" level="315" price="0" desc="Increases all combat abilities of clan members." />
+		<buff id="1415" level="115" price="0" desc="Increases resistance to buff cancel and de-buffs." />
+		<buff id="1416" level="115" price="0" desc="Increases Max CP and restores CP." />
+	</category>
+	<category type="Bladedancer">
+		<buff id="271" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="272" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="273" level="130" price="0" desc="Increases M. Atk." />
+		<buff id="274" level="130" price="0" desc="Increases critical damage." />
+		<buff id="275" level="130" price="0" desc="Increases attack speed." />
+		<buff id="276" level="130" price="0" desc="Increases Casting Spd." />
+		<buff id="277" level="130" price="0" desc="Sacred power to physical attack." />
+		<buff id="307" level="130" price="0" desc="Increases water resistance." />
+		<buff id="309" level="130" price="0" desc="Increases earth resistance." />
+		<buff id="310" level="130" price="0" desc="Restores HP by inflicted damage." />
+		<buff id="311" level="130" price="0" desc="Increases resistance to terrain damage." />
+	</category>
+	<category type="Swordsinger">
+		<buff id="264" level="130" price="0" desc="Increases P. Def." />
+		<buff id="265" level="130" price="0" desc="Increases HP regeneration." />
+		<buff id="266" level="130" price="0" desc="Increases Evasion." />
+		<buff id="267" level="130" price="0" desc="Increases M. Def." />
+		<buff id="268" level="130" price="0" desc="Increases movement." />
+		<buff id="269" level="130" price="0" desc="Increases critical rate." />
+		<buff id="270" level="130" price="0" desc="Increases resistance to dark magic." />
+		<buff id="304" level="130" price="0" desc="Increases maximum HP." />
+		<buff id="305" level="130" price="0" desc="Reflects damage received." />
+		<buff id="306" level="130" price="0" desc="Increases resistance to fire." />
+		<buff id="308" level="130" price="0" desc="Increases resistance to wind." />
+	</category>
+	<category type="ElvenElder">
+		<buff id="1035" level="130" price="0" desc="Increases resistance to mental attacks." />
+		<buff id="1040" level="130" price="0" desc="Increases P. Def." />
+		<buff id="1044" level="130" price="0" desc="Temporarily increases HP recovery." />
+		<buff id="1068" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="1078" level="130" price="0" desc="Increases magic concentration." />
+		<buff id="1243" level="130" price="0" desc="Increases shield defense rate." />
+		<buff id="1393" level="130" price="0" desc="Increases resistance to dark attacks." />
+		<buff id="1033" level="330" price="0" desc="Increases resistance to poison" />
+		<buff id="1087" level="130" price="0" desc="Increases Evasion." />
+		<buff id="1303" level="130" price="0" desc="Increases crit. rate of magic attacks." />
+		<buff id="1304" level="130" price="0" desc="Increases shield defense power." />
+		<buff id="1397" level="230" price="0" desc="Decreases MP consumption rate." />
+		<buff id="1259" level="330" price="0" desc="Increases resistance to stun attack." />
+		<buff id="1503" level="1" price="0" desc="Increases Shield Defense Rate and Power for 40 min." />
+		<buff id="1504" level="1" price="0" desc="Increases Speed and Evasion for 40 min." />
+	</category>
+	<category type="ShillienElder">
+		<buff id="1035" level="130" price="0" desc="Increases resistance to mental attacks." />
+		<buff id="1040" level="130" price="0" desc="Increases P. Def." />
+		<buff id="1068" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="1077" level="130" price="0" desc="Increases critical attack rate." />
+		<buff id="1078" level="130" price="0" desc="Increases magic concentration." />
+		<buff id="1240" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="1242" level="130" price="0" desc="Increases critical attack." />
+		<buff id="1392" level="130" price="0" desc="Increases resistance to sacred attacks." />
+		<buff id="1189" level="330" price="0" desc="Increases resistance to attack by wind" />
+		<buff id="1303" level="130" price="0" desc="Increases crit. rate of magic attacks." />
+		<buff id="1059" level="130" price="0" desc="Increases M. Atk." />
+		<buff id="1268" level="130" price="0" desc="Restores HP using inflicted damage." />
+		<buff id="1500" level="1" price="0" desc="Increases M. Atk. by 75% and M. Def. by 30% for 40 min." />
+		<buff id="1502" level="1" price="0" desc="Increases Critical Rate by 30% and Critical Damage by 35% for 40 min." />
+	</category>
+	<category type="Special">
+		<buff id="1204" level="130" price="0" desc="Increases Speed." />
+		<buff id="1043" level="130" price="0" desc="Temporary holy enhancement of physical attack." />
+		<buff id="1542" level="1" price="0" desc="Critical damage is greatly increased." />
+		<buff id="365" level="115" price="0" desc="Increases rate of magic crit. damage." />
+		<buff id="915" level="1" price="0" desc="Decreases P. Def./M. Def./evasion and increases P. Atk./M. Atk./Atk. Spd./Casting Spd./moving speed." />
+		<buff id="349" level="115" price="0" desc="Decreases re-use time." />
+		<buff id="363" level="115" price="0" desc="Increases MP regeneration rate." />
+		<buff id="364" level="115" price="0" desc="Decreases re-use time of physical skills." />
+		<buff id="1362" level="115" price="0" desc="Increases resistance to Cancel attack." />
+		<buff id="1461" level="115" price="0" desc="Decreases the critical damage received." />
+		<buff id="1355" level="315" price="0" desc="Increases all mage abilities." />
+		<buff id="1356" level="315" price="0" desc="Increases all fighter abilities." />
+		<buff id="1357" level="315" price="0" desc="Increases all dagger abilities." />
+		<buff id="1363" level="315" price="0" desc="Increases combat abilities." />
+		<buff id="1413" level="115" price="0" desc="Increases mage abilities." />
+		<buff id="4702" level="13" price="0" desc="Increases MP regeneration rate" />
+		<buff id="4703" level="13" price="0" desc="Decreases re-use time of magic skills" />
+		<buff id="4700" level="13" price="0" desc="Increases P. Atk. and Accuracy" />
+		<buff id="4699" level="13" price="0" desc="Increases critical chance and power" />
+		<buff id="1352" level="115" price="0" desc="Increases resistance to atures." />
+		<buff id="1353" level="115" price="0" desc="Increases resistance to dark attack." />
+		<buff id="1354" level="115" price="0" desc="Increases resistance to de-buff attack." />
+		<buff id="530" level="115" price="0" desc="Increases the resistance to divinity/darkness attacks" />
+		<buff id="366" level="115" price="0" desc="Decreases movement speed by 50% and prevents them from being pre-emptively attacked by monsters" />
+		<buff id="529" level="115" price="0" desc="Increases resistance to fire, water, wind and earth attacks" />
+		<buff id="1549" level="1" price="0" desc="Increases the elemental attribute" />
+		<buff id="395" level="1" price="0" desc="Heroic Miracle" />
+		<buff id="396" level="1" price="0" desc="Heroic Berserker" />
+		<buff id="1374" level="1" price="0" desc="Heroic Valor" />
+		<buff id="825" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="826" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="827" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="828" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="829" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="830" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="1323" level="1" price="0" desc="Preserves buffs after death" />
+	</category>
+	<category type="Dwarf">
+		<buff id="825" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="826" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="827" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="828" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="829" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="830" level="1" price="0" desc="Dwarven equipment support" />
+	</category>
+	<category type="Noblesse">
+		<buff id="1323" level="1" price="0" desc="Preserves buffs after death" />
+	</category>
+	<category type="Improved">
+		<buff id="1499" level="1" price="0" desc="Increases P. Atk. and P. Def. by 15% for 40 min." />
+		<buff id="1500" level="1" price="0" desc="Increases M. Atk. by 75% and M. Def. by 30% for 40 min." />
+		<buff id="1501" level="1" price="0" desc="Increases Max HP and Max MP by 35% for 40 min." />
+		<buff id="1502" level="1" price="0" desc="Increases Critical Rate by 30% and Critical Damage by 35% for 40 min." />
+		<buff id="1503" level="1" price="0" desc="Increases Shield Defense Rate and Power for 40 min." />
+		<buff id="1504" level="1" price="0" desc="Increases Speed and Evasion for 40 min." />
+	</category>
+	<category type="Hero">
+		<buff id="395" level="1" price="0" desc="Heroic Miracle" />
+		<buff id="396" level="1" price="0" desc="Heroic Berserker" />
+		<buff id="1374" level="1" price="0" desc="Heroic Valor" />
+	</category>
+	<category type="VIP-Prophet">
+		<buff id="1035" level="130" price="0" desc="Increases resistance to mental attacks." />
+		<buff id="1036" level="130" price="0" desc="Increases M. Def." />
+		<buff id="1040" level="130" price="0" desc="Increases P. Def." />
+		<buff id="1044" level="130" price="0" desc="Temporarily increases HP recovery." />
+		<buff id="1045" level="130" price="0" desc="Increases maximum HP." />
+		<buff id="1048" level="130" price="0" desc="Increases maximum MP." />
+		<buff id="1062" level="130" price="0" desc="Reduces def. and increase atk. power." />
+		<buff id="1068" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="1077" level="130" price="0" desc="Increases critical attack rate." />
+		<buff id="1078" level="130" price="0" desc="Increases magic concentration." />
+		<buff id="1085" level="130" price="0" desc="Increases Casting Spd." />
+		<buff id="1086" level="130" price="0" desc="Increases Atk. Spd." />
+		<buff id="1240" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="1242" level="130" price="0" desc="Increases critical attack." />
+		<buff id="1243" level="130" price="0" desc="Increases shield defense rate." />
+		<buff id="1388" level="230" price="0" desc="Increases P. Atk." />
+		<buff id="1389" level="230" price="0" desc="Increases P. Def." />
+		<buff id="1393" level="130" price="0" desc="Increases resistance to dark attacks." />
+		<buff id="1392" level="130" price="0" desc="Increases resistance to sacred attacks." />
+		<buff id="1033" level="330" price="0" desc="Increases resistance to poison" />
+		<buff id="1182" level="330" price="0" desc="Increases tolerance to attack by water" />
+		<buff id="1189" level="330" price="0" desc="Increases resistance to attack by wind" />
+		<buff id="1191" level="330" price="0" desc="increases resistance to attacks by fire" />
+		<buff id="1032" level="330" price="0" desc="increases resistance to bleeding" />
+		<buff id="1499" level="1" price="0" desc="Increases P. Atk. and P. Def. by 15% for 40 min." />
+		<buff id="1501" level="1" price="0" desc="Increases Max HP and Max MP by 35% for 40 min." />
+	</category>
+	<category type="VIP-Warcryer">
+		<buff id="1390" level="230" price="0" desc="Increases P. Atk." />
+		<buff id="1391" level="230" price="0" desc="Increases P. Def." />
+		<buff id="1002" level="130" price="0" desc="Increases Casting Spd." />
+		<buff id="1251" level="130" price="0" desc="Increases Atk. Spd." />
+		<buff id="1252" level="130" price="0" desc="Increases Evasion." />
+		<buff id="1253" level="130" price="0" desc="Increases critical attack." />
+		<buff id="1284" level="130" price="0" desc="Reflects damage received." />
+		<buff id="1006" level="130" price="0" desc="Increases M. Def." />
+		<buff id="1007" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="1009" level="130" price="0" desc="Increases P. Def." />
+		<buff id="1310" level="130" price="0" desc="Restores HP using inflicted damage." />
+		<buff id="1309" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="1308" level="130" price="0" desc="Increases critical attack rate." />
+	</category>
+	<category type="VIP-Overlord">
+		<buff id="1004" level="130" price="0" desc="Increases Casting Spd. by 15%." />
+		<buff id="1005" level="130" price="0" desc="Increases P. Def. by 8%." />
+		<buff id="1008" level="130" price="0" desc="Increases M. Def. by 15%." />
+		<buff id="1249" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="1250" level="130" price="0" desc="Increases shield defense by 30%." />
+		<buff id="1260" level="130" price="0" desc="Increases Evasion." />
+		<buff id="1261" level="130" price="0" desc="Reduces def. and increases atk. power." />
+		<buff id="1536" level="1" price="0" desc="Increases P. Atk. and P. Def. by 15%." />
+		<buff id="1537" level="1" price="0" desc="Increases critical rate and critical damage." />
+		<buff id="1538" level="1" price="0" desc="Increases Max HP and Max MP by 35%." />
+		<buff id="1563" level="2" price="0" desc="Increases Atk. Spd. by 15%." />
+		<buff id="1364" level="1" price="0" desc="Increases Accuracy and decreases critical damage received." />
+		<buff id="1365" level="1" price="0" desc="Increases M. Atk. by 75% and M. Def. by 30%." />
+		<buff id="1414" level="315" price="0" desc="Increases all combat abilities of clan members." />
+		<buff id="1415" level="115" price="0" desc="Increases resistance to buff cancel and de-buffs." />
+		<buff id="1416" level="115" price="0" desc="Increases Max CP and restores CP." />
+	</category>
+	<category type="VIP-Bladedancer">
+		<buff id="271" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="272" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="273" level="130" price="0" desc="Increases M. Atk." />
+		<buff id="274" level="130" price="0" desc="Increases critical damage." />
+		<buff id="275" level="130" price="0" desc="Increases attack speed." />
+		<buff id="276" level="130" price="0" desc="Increases Casting Spd." />
+		<buff id="277" level="130" price="0" desc="Sacred power to physical attack." />
+		<buff id="307" level="130" price="0" desc="Increases water resistance." />
+		<buff id="309" level="130" price="0" desc="Increases earth resistance." />
+		<buff id="310" level="130" price="0" desc="Restores HP by inflicted damage." />
+		<buff id="311" level="130" price="0" desc="Increases resistance to terrain damage." />
+	</category>
+	<category type="VIP-Swordsinger">
+		<buff id="264" level="130" price="0" desc="Increases P. Def." />
+		<buff id="265" level="130" price="0" desc="Increases HP regeneration." />
+		<buff id="266" level="130" price="0" desc="Increases Evasion." />
+		<buff id="267" level="130" price="0" desc="Increases M. Def." />
+		<buff id="268" level="130" price="0" desc="Increases movement." />
+		<buff id="269" level="130" price="0" desc="Increases critical rate." />
+		<buff id="270" level="130" price="0" desc="Increases resistance to dark magic." />
+		<buff id="304" level="130" price="0" desc="Increases maximum HP." />
+		<buff id="305" level="130" price="0" desc="Reflects damage received." />
+		<buff id="306" level="130" price="0" desc="Increases resistance to fire." />
+		<buff id="308" level="130" price="0" desc="Increases resistance to wind." />
+	</category>
+	<category type="VIP-ElvenElder">
+		<buff id="1035" level="130" price="0" desc="Increases resistance to mental attacks." />
+		<buff id="1040" level="130" price="0" desc="Increases P. Def." />
+		<buff id="1044" level="130" price="0" desc="Temporarily increases HP recovery." />
+		<buff id="1068" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="1078" level="130" price="0" desc="Increases magic concentration." />
+		<buff id="1243" level="130" price="0" desc="Increases shield defense rate." />
+		<buff id="1393" level="130" price="0" desc="Increases resistance to dark attacks." />
+		<buff id="1033" level="330" price="0" desc="Increases resistance to poison" />
+		<buff id="1087" level="130" price="0" desc="Increases Evasion." />
+		<buff id="1303" level="130" price="0" desc="Increases crit. rate of magic attacks." />
+		<buff id="1304" level="130" price="0" desc="Increases shield defense power." />
+		<buff id="1397" level="230" price="0" desc="Decreases MP consumption rate." />
+		<buff id="1259" level="330" price="0" desc="Increases resistance to stun attack." />
+		<buff id="1503" level="1" price="0" desc="Increases Shield Defense Rate and Power for 40 min." />
+		<buff id="1504" level="1" price="0" desc="Increases Speed and Evasion for 40 min." />
+	</category>
+	<category type="VIP-ShillienElder">
+		<buff id="1035" level="130" price="0" desc="Increases resistance to mental attacks." />
+		<buff id="1040" level="130" price="0" desc="Increases P. Def." />
+		<buff id="1068" level="130" price="0" desc="Increases P. Atk." />
+		<buff id="1077" level="130" price="0" desc="Increases critical attack rate." />
+		<buff id="1078" level="130" price="0" desc="Increases magic concentration." />
+		<buff id="1240" level="130" price="0" desc="Increases Accuracy." />
+		<buff id="1242" level="130" price="0" desc="Increases critical attack." />
+		<buff id="1392" level="130" price="0" desc="Increases resistance to sacred attacks." />
+		<buff id="1189" level="330" price="0" desc="Increases resistance to attack by wind" />
+		<buff id="1303" level="130" price="0" desc="Increases crit. rate of magic attacks." />
+		<buff id="1059" level="130" price="0" desc="Increases M. Atk." />
+		<buff id="1268" level="130" price="0" desc="Restores HP using inflicted damage." />
+		<buff id="1500" level="1" price="0" desc="Increases M. Atk. by 75% and M. Def. by 30% for 40 min." />
+		<buff id="1502" level="1" price="0" desc="Increases Critical Rate by 30% and Critical Damage by 35% for 40 min." />
+	</category>
+	<category type="VIP-Special">
+		<buff id="1204" level="130" price="0" desc="Increases Speed." />
+		<buff id="1043" level="130" price="0" desc="Temporary holy enhancement of physical attack." />
+		<buff id="1542" level="1" price="0" desc="Critical damage is greatly increased." />
+		<buff id="365" level="115" price="0" desc="Increases rate of magic crit. damage." />
+		<buff id="915" level="1" price="0" desc="Decreases P. Def./M. Def./evasion and increases P. Atk./M. Atk./Atk. Spd./Casting Spd./moving speed." />
+		<buff id="349" level="115" price="0" desc="Decreases re-use time." />
+		<buff id="363" level="115" price="0" desc="Increases MP regeneration rate." />
+		<buff id="364" level="115" price="0" desc="Decreases re-use time of physical skills." />
+		<buff id="1362" level="115" price="0" desc="Increases resistance to Cancel attack." />
+		<buff id="1461" level="115" price="0" desc="Decreases the critical damage received." />
+		<buff id="1355" level="315" price="0" desc="Increases all mage abilities." />
+		<buff id="1356" level="315" price="0" desc="Increases all fighter abilities." />
+		<buff id="1357" level="315" price="0" desc="Increases all dagger abilities." />
+		<buff id="1363" level="315" price="0" desc="Increases combat abilities." />
+		<buff id="1413" level="115" price="0" desc="Increases mage abilities." />
+		<buff id="4702" level="13" price="0" desc="Increases MP regeneration rate" />
+		<buff id="4703" level="13" price="0" desc="Decreases re-use time of magic skills" />
+		<buff id="4700" level="13" price="0" desc="Increases P. Atk. and Accuracy" />
+		<buff id="4699" level="13" price="0" desc="Increases critical chance and power" />
+		<buff id="1352" level="115" price="0" desc="Increases resistance to atures." />
+		<buff id="1353" level="115" price="0" desc="Increases resistance to dark attack." />
+		<buff id="1354" level="115" price="0" desc="Increases resistance to de-buff attack." />
+		<buff id="530" level="115" price="0" desc="Increases the resistance to divinity/darkness attacks" />
+		<buff id="366" level="115" price="0" desc="Decreases movement speed by 50% and prevents them from being pre-emptively attacked by monsters" />
+		<buff id="529" level="115" price="0" desc="Increases resistance to fire, water, wind and earth attacks" />
+		<buff id="1549" level="1" price="0" desc="Increases the elemental attribute" />
+		<buff id="395" level="1" price="0" desc="Heroic Miracle" />
+		<buff id="396" level="1" price="0" desc="Heroic Berserker" />
+		<buff id="1374" level="1" price="0" desc="Heroic Valor" />
+		<buff id="825" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="826" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="827" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="828" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="829" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="830" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="1323" level="1" price="0" desc="Preserves buffs after death" />
+	</category>
+	<category type="VIP-Hero">
+		<buff id="395" level="1" price="0" desc="Heroic Miracle" />
+		<buff id="396" level="1" price="0" desc="Heroic Berserker" />
+		<buff id="1374" level="1" price="0" desc="Heroic Valor" />
+	</category>
+	<category type="VIP-Dwarf">
+		<buff id="825" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="826" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="827" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="828" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="829" level="1" price="0" desc="Dwarven equipment support" />
+		<buff id="830" level="1" price="0" desc="Dwarven equipment support" />
+	</category>
+	<category type="VIP-Noblesse">
+		<buff id="1323" level="1" price="0" desc="Preserves buffs after death" />
+	</category>
+</list>

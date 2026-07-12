@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/multisell.xsd">
+	<npcs><npc>-1</npc></npcs>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="9899" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="21159" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="21160" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="12751" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="22237" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="17050" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="12748" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="12747" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="877" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="1508" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="875" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="1509" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="876" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="9900" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="10658" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="908" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="1507" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="118" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="906" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="1506" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="907" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="17198" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="17199" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="17200" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="113" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="116" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="12750" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="115" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="114" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="12749" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="12746" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="846" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="845" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="909" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="878" /></item>
+	<item><ingredient count="2738000" id="57" /><production count="1" id="12752" /></item>
+	<item><ingredient count="1000000" id="57" /><production count="1" id="112" /></item>
+</list>
