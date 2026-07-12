@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/multisell.xsd">
+	<npcs><npc>-1</npc></npcs>
+	<item><ingredient count="100000000" id="57" /><production count="1" id="6386" /><production count="1" id="6383" /><production count="1" id="6384" /><production count="1" id="6385" /></item>
+	<item><ingredient count="150000000" id="57" /><production count="1" id="6378" /><production count="1" id="6373" /><production count="1" id="6374" /><production count="1" id="6375" /><production count="1" id="6376" /><production count="1" id="6377" /></item>
+	<item><ingredient count="100000000" id="57" /><production count="1" id="6382" /><production count="1" id="6379" /><production count="1" id="6380" /><production count="1" id="6381" /></item>
+</list>

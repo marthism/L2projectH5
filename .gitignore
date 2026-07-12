@@ -1,0 +1,21 @@
+# Runtime logs
+game/log/
+login/log/
+
+# DB backups / dumps (may contain live secrets, not source)
+backup/*
+!backup/readme.txt
+db_installer/dumps/
+
+# Compiled/deployed jars (rebuilt from the source repo via Ant; also avoids huge binary diffs)
+libs/*.jar
+libs/*.jar.bak*
+
+# Credentials - do not version real DB passwords or the gameserver auth secret
+game/config/Database.ini
+game/config/hexid.txt
+login/config/Database.ini
+tools/AutoLoginAccounts.txt
+
+# Local session state
+.claude/

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xsd/enchantItemGroups.xsd">
+	<!-- General armor enchant group. -->
+	<enchantRateGroup name="ARMOR_GROUP">
+		<current enchant="0-2" chance="100" />
+		<current enchant="3-15" chance="66" />
+		<current enchant="16-65535" chance="0" />
+	</enchantRateGroup>
+
+	<!-- General full armor enchant group. -->
+	<enchantRateGroup name="FULL_ARMOR_GROUP">
+		<current enchant="0-3" chance="100" />
+		<current enchant="4-15" chance="66" />
+		<current enchant="16-65535" chance="0" />
+	</enchantRateGroup>
+
+	<!-- General fighter weapon enchant group. -->
+	<enchantRateGroup name="FIGHTER_WEAPON_GROUP">
+		<current enchant="0-2" chance="100" />
+		<current enchant="3-15" chance="66" />
+		<current enchant="16-65535" chance="0" />
+	</enchantRateGroup>
+
+	<!-- General mage weapon enchant group. -->
+	<enchantRateGroup name="MAGE_WEAPON_GROUP">
+		<current enchant="0-2" chance="100" />
+		<current enchant="3-15" chance="66" />
+		<current enchant="16-65535" chance="0" />
+	</enchantRateGroup>
+
+	<!-- Blessed scrolls enchant group: 100% up to +20, then -1% every 5 levels down to +100. -->
+	<enchantRateGroup name="BLESSED_GROUP">
+		<current enchant="0-19" chance="100" />
+		<current enchant="20-24" chance="99" />
+		<current enchant="25-29" chance="98" />
+		<current enchant="30-34" chance="97" />
+		<current enchant="35-39" chance="96" />
+		<current enchant="40-44" chance="95" />
+		<current enchant="45-49" chance="94" />
+		<current enchant="50-54" chance="93" />
+		<current enchant="55-59" chance="92" />
+		<current enchant="60-64" chance="91" />
+		<current enchant="65-69" chance="90" />
+		<current enchant="70-74" chance="89" />
+		<current enchant="75-79" chance="88" />
+		<current enchant="80-84" chance="87" />
+		<current enchant="85-89" chance="86" />
+		<current enchant="90-94" chance="85" />
+		<current enchant="95-65535" chance="84" />
+	</enchantRateGroup>
+
+	<!-- Default scrolls enchanting route line. -->
+	<enchantScrollGroup id="0">
+		<!-- Bind armor group to all item slots except full armor. -->
+		<enchantRate group="ARMOR_GROUP">
+			<item slot="lhand" /> <!-- Left hand: Shields, Sigils -->
+			<item slot="head" /> <!-- Head: Helmet -->
+			<item slot="chest" /> <!-- Chest: Armor upper body. -->
+			<item slot="legs" /> <!-- Legs: Armor lower body. -->
+			<item slot="feet" /> <!-- Feet: Boots -->
+			<item slot="gloves" /> <!-- Gloves: Gloves -->
+			<item slot="neck" /> <!-- Neck: Necklaces -->
+			<item slot="rear;lear" /> <!-- Right ear, Left ear: Earrings -->
+			<item slot="rfinger;lfinger" /> <!-- Right finger, Left finger: Rings -->
+			<item slot="belt" /> <!-- Belt: Belts -->
+			<item slot="shirt" /> <!-- Shirt: Shirts -->
+		</enchantRate>
+		<!-- Bind only full armor group to to full armor slot items. -->
+		<enchantRate group="FULL_ARMOR_GROUP">
+			<item slot="fullarmor" /> <!-- Full Armor: Full armor pants are included. -->
+		</enchantRate>
+		<!-- Bind only fighter weapon group to all fighter weapons. -->
+		<enchantRate group="FIGHTER_WEAPON_GROUP">
+			<item slot="rhand" magicWeapon="false" /> <!-- Right hand: Weapons, Non magic weapon -->
+			<item slot="lrhand" magicWeapon="false" /> <!-- Two hands: Weapons, Non magic weapon -->
+		</enchantRate>
+		<!-- Bind only mage weapon group to all magic weapons. -->
+		<enchantRate group="MAGE_WEAPON_GROUP">
+			<item slot="rhand" magicWeapon="true" /> <!-- Right hand: Weapons, Magic weapon -->
+			<item slot="lrhand" magicWeapon="true" /> <!-- Two hands: Weapons, Magic weapon -->
+		</enchantRate>
+	</enchantScrollGroup>
+
+	<!-- Blessed scrolls enchanting route line: every slot uses the same declining-chance curve. -->
+	<enchantScrollGroup id="1">
+		<enchantRate group="BLESSED_GROUP">
+			<item slot="lhand" />
+			<item slot="head" />
+			<item slot="chest" />
+			<item slot="legs" />
+			<item slot="feet" />
+			<item slot="gloves" />
+			<item slot="neck" />
+			<item slot="rear;lear" />
+			<item slot="rfinger;lfinger" />
+			<item slot="belt" />
+			<item slot="shirt" />
+			<item slot="fullarmor" />
+			<item slot="rhand" magicWeapon="false" />
+			<item slot="lrhand" magicWeapon="false" />
+			<item slot="rhand" magicWeapon="true" />
+			<item slot="lrhand" magicWeapon="true" />
+		</enchantRate>
+	</enchantScrollGroup>
+</list>

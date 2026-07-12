@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/multisell.xsd">
+	<npcs>
+		<npc>-1</npc> <!-- CB -->
+	</npcs>
+	<item>
+		<!-- Adena -->
+		<ingredient count="50000" id="57" />
+		<!-- Soulshot: No Grade -->
+		<production count="1000" id="1835" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="50000" id="57" />
+		<!-- Spiritshot: No Grade -->
+		<production count="1000" id="2509" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="100000" id="57" />
+		<!-- Blessed Spiritshot: No Grade -->
+		<production count="1000" id="3947" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="100000" id="57" />
+		<!-- Soulshot (D-Grade) -->
+		<production count="1000" id="1463" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="200000" id="57" />
+		<!-- Soulshot (C-Grade) -->
+		<production count="1000" id="1464" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="400000" id="57" />
+		<!-- Soulshot (B-Grade) -->
+		<production count="1000" id="1465" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="800000" id="57" />
+		<!-- Soulshot (A-Grade) -->
+		<production count="1000" id="1466" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="1500000" id="57" />
+		<!-- Soulshot (S-Grade) -->
+		<production count="1000" id="1467" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="100000" id="57" />
+		<!-- Spiritshot (D-Grade) -->
+		<production count="1000" id="2510" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="200000" id="57" />
+		<!-- Spiritshot (C-Grade) -->
+		<production count="1000" id="2511" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="400000" id="57" />
+		<!-- Spiritshot (B-Grade) -->
+		<production count="1000" id="2512" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="800000" id="57" />
+		<!-- Spiritshot (A-Grade) -->
+		<production count="1000" id="2513" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="1500000" id="57" />
+		<!-- Spiritshot (S-Grade) -->
+		<production count="1000" id="2514" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="200000" id="57" />
+		<!-- Blessed Spiritshot (D-Grade) -->
+		<production count="1000" id="3948" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="400000" id="57" />
+		<!-- Blessed Spiritshot (C-Grade) -->
+		<production count="1000" id="3949" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="800000" id="57" />
+		<!-- Blessed Spiritshot (B-Grade) -->
+		<production count="1000" id="3950" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="1600000" id="57" />
+		<!-- Blessed Spiritshot (A-Grade) -->
+		<production count="1000" id="3951" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="3000000" id="57" />
+		<!-- Blessed Spiritshot (S-Grade) -->
+		<production count="1000" id="3952" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="500000" id="57" />
+		<!-- Greater Healing Potion -->
+		<production count="100" id="1539" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="500000" id="57" />
+		<!-- CP Potion -->
+		<production count="100" id="5591" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="1000000" id="57" />
+		<!-- Greater CP Potion -->
+		<production count="100" id="5592" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="1000000" id="57" />
+		<!-- Mana Potion -->
+		<production count="100" id="728" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="100000" id="57" />
+		<!-- Antidote -->
+		<production count="100" id="1831" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="100000" id="57" />
+		<!-- Bandage -->
+		<production count="100" id="1833" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="200000" id="57" />
+		<!-- Mithril Arrow -->
+		<production count="2000" id="1344" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="400000" id="57" />
+		<!-- Shining Arrow -->
+		<production count="2000" id="1345" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="100000" id="57" />
+		<!-- Scroll: Recovery (No Grade) -->
+		<production count="1" id="8594" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="150000" id="57" />
+		<!-- Scroll: Recovery (Grade D) -->
+		<production count="1" id="8595" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="250000" id="57" />
+		<!-- Scroll: Recovery (Grade C) -->
+		<production count="1" id="8596" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="400000" id="57" />
+		<!-- Scroll: Recovery (Grade B) -->
+		<production count="1" id="8597" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="600000" id="57" />
+		<!-- Scroll: Recovery (Grade A) -->
+		<production count="1" id="8598" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="900000" id="57" />
+		<!-- Scroll: Recovery (Grade S) -->
+		<production count="1" id="8599" />
+	</item>
+</list>
