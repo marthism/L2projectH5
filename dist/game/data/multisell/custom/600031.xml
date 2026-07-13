@@ -87,4 +87,10 @@
 		<!-- Giant's Codex -->
 		<production count="1" id="6622" />
 	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="10000000" id="57" />
+		<!-- Giant's Codex - Mastery -->
+		<production count="1" id="9627" />
+	</item>
 </list>

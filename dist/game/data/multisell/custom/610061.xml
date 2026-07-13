@@ -1,52 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/multisell.xsd">
 	<npcs><npc>-1</npc></npcs>
-	<item><ingredient count="112749000" id="57" /><production count="1" id="11328" /></item>
-	<item><ingredient count="127230000" id="57" /><production count="1" id="11327" /></item>
-	<item><ingredient count="109645000" id="57" /><production count="1" id="11326" /></item>
 	<item><ingredient count="124127000" id="57" /><production count="1" id="11325" /></item>
 	<item><ingredient count="122058000" id="57" /><production count="1" id="10466" /></item>
 	<item><ingredient count="136539000" id="57" /><production count="1" id="10465" /></item>
 	<item><ingredient count="118955000" id="57" /><production count="1" id="10464" /></item>
-	<item><ingredient count="118955000" id="57" /><production count="1" id="11332" /></item>
-	<item><ingredient count="133436000" id="57" /><production count="1" id="11331" /></item>
-	<item><ingredient count="115852000" id="57" /><production count="1" id="11330" /></item>
 	<item><ingredient count="114817000" id="57" /><production count="1" id="10451" /></item>
 	<item><ingredient count="129299000" id="57" /><production count="1" id="10450" /></item>
 	<item><ingredient count="111714000" id="57" /><production count="1" id="10449" /></item>
 	<item><ingredient count="133436000" id="57" /><production count="1" id="10463" /></item>
 	<item><ingredient count="115852000" id="57" /><production count="1" id="10462" /></item>
 	<item><ingredient count="130333000" id="57" /><production count="1" id="10461" /></item>
-	<item><ingredient count="126196000" id="57" /><production count="1" id="11316" /></item>
-	<item><ingredient count="108611000" id="57" /><production count="1" id="11315" /></item>
-	<item><ingredient count="123092000" id="57" /><production count="1" id="11314" /></item>
 	<item><ingredient count="119989000" id="57" /><production count="1" id="10444" /></item>
 	<item><ingredient count="137574000" id="57" /><production count="1" id="10445" /></item>
-	<item><ingredient count="121024000" id="57" /><production count="1" id="11323" /></item>
-	<item><ingredient count="138608000" id="57" /><production count="1" id="11324" /></item>
-	<item><ingredient count="135505000" id="57" /><production count="1" id="11322" /></item>
 	<item><ingredient count="134471000" id="57" /><production count="1" id="10443" /></item>
-	<item><ingredient count="114817000" id="57" /><production count="1" id="11319" /></item>
-	<item><ingredient count="132402000" id="57" /><production count="1" id="11320" /></item>
-	<item><ingredient count="129299000" id="57" /><production count="1" id="11318" /></item>
 	<item><ingredient count="131368000" id="57" /><production count="1" id="10441" /></item>
 	<item><ingredient count="116886000" id="57" /><production count="1" id="10442" /></item>
 	<item><ingredient count="113783000" id="57" /><production count="1" id="10440" /></item>
 	<item><ingredient count="125161000" id="57" /><production count="1" id="10468" /></item>
 	<item><ingredient count="110680000" id="57" /><production count="1" id="10469" /></item>
-	<item><ingredient count="134471000" id="57" /><production count="1" id="11311" /></item>
-	<item><ingredient count="119989000" id="57" /><production count="1" id="11312" /></item>
-	<item><ingredient count="116886000" id="57" /><production count="1" id="11310" /></item>
 	<item><ingredient count="139643000" id="57" /><production count="1" id="10467" /></item>
 	<item><ingredient count="139643000" id="57" /><production count="1" id="10436" /></item>
 	<item><ingredient count="122058000" id="57" /><production count="1" id="10435" /></item>
 	<item><ingredient count="136539000" id="57" /><production count="1" id="10434" /></item>
-	<item><ingredient count="113783000" id="57" /><production count="1" id="11308" /></item>
-	<item><ingredient count="128264000" id="57" /><production count="1" id="11307" /></item>
-	<item><ingredient count="110680000" id="57" /><production count="1" id="11306" /></item>
-	<item><ingredient count="137574000" id="57" /><production count="1" id="11344" /></item>
-	<item><ingredient count="119989000" id="57" /><production count="1" id="11343" /></item>
-	<item><ingredient count="134471000" id="57" /><production count="1" id="11342" /></item>
 	<item><ingredient count="116886000" id="57" /><production count="1" id="11341" /></item>
 	<item><ingredient count="128264000" id="57" /><production count="1" id="10439" /></item>
 	<item><ingredient count="110680000" id="57" /><production count="1" id="10438" /></item>
@@ -54,25 +30,13 @@
 	<item><ingredient count="109645000" id="57" /><production count="1" id="10458" /></item>
 	<item><ingredient count="112749000" id="57" /><production count="1" id="10460" /></item>
 	<item><ingredient count="127230000" id="57" /><production count="1" id="10459" /></item>
-	<item><ingredient count="128264000" id="57" /><production count="1" id="11338" /></item>
-	<item><ingredient count="131368000" id="57" /><production count="1" id="11340" /></item>
-	<item><ingredient count="113783000" id="57" /><production count="1" id="11339" /></item>
 	<item><ingredient count="135505000" id="57" /><production count="1" id="10454" /></item>
 	<item><ingredient count="117920000" id="57" /><production count="1" id="10453" /></item>
-	<item><ingredient count="125161000" id="57" /><production count="1" id="11336" /></item>
-	<item><ingredient count="139643000" id="57" /><production count="1" id="11335" /></item>
-	<item><ingredient count="122058000" id="57" /><production count="1" id="11334" /></item>
 	<item><ingredient count="132402000" id="57" /><production count="1" id="10452" /></item>
 	<item><ingredient count="121024000" id="57" /><production count="1" id="10455" /></item>
-	<item><ingredient count="108611000" id="57" /><production count="1" id="11346" /></item>
-	<item><ingredient count="126196000" id="57" /><production count="1" id="11347" /></item>
-	<item><ingredient count="111714000" id="57" /><production count="1" id="11348" /></item>
 	<item><ingredient count="138608000" id="57" /><production count="1" id="10456" /></item>
 	<item><ingredient count="124127000" id="57" /><production count="1" id="10457" /></item>
 	<item><ingredient count="123092000" id="57" /><production count="1" id="10446" /></item>
 	<item><ingredient count="108611000" id="57" /><production count="1" id="10447" /></item>
 	<item><ingredient count="126196000" id="57" /><production count="1" id="10448" /></item>
-	<item><ingredient count="136539000" id="57" /><production count="1" id="11302" /></item>
-	<item><ingredient count="122058000" id="57" /><production count="1" id="11303" /></item>
-	<item><ingredient count="139643000" id="57" /><production count="1" id="11304" /></item>
 </list>

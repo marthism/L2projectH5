@@ -26,8 +26,10 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -36,6 +38,7 @@ import java.util.function.Predicate;
 
 import org.l2jmobius.commons.database.DatabaseFactory;
 import org.l2jmobius.commons.threads.ThreadPool;
+import org.l2jmobius.commons.util.Rnd;
 import org.l2jmobius.gameserver.cache.HtmCache;
 import org.l2jmobius.gameserver.config.custom.CommunityBoardConfig;
 import org.l2jmobius.gameserver.config.custom.PremiumSystemConfig;
@@ -43,6 +46,7 @@ import org.l2jmobius.gameserver.config.custom.SchemeBufferConfig;
 import org.l2jmobius.gameserver.data.SchemeBufferTable;
 import org.l2jmobius.gameserver.data.sql.ClanTable;
 import org.l2jmobius.gameserver.data.xml.BuyListData;
+import org.l2jmobius.gameserver.data.xml.EnchantSkillGroupsData;
 import org.l2jmobius.gameserver.data.xml.ExperienceData;
 import org.l2jmobius.gameserver.data.xml.MultisellData;
 import org.l2jmobius.gameserver.data.xml.EnchantItemData;
@@ -67,11 +71,14 @@ import org.l2jmobius.gameserver.model.item.enchant.EnchantResultType;
 import org.l2jmobius.gameserver.model.item.enchant.EnchantScroll;
 import org.l2jmobius.gameserver.model.item.enums.ItemProcessType;
 import org.l2jmobius.gameserver.model.item.instance.Item;
+import org.l2jmobius.gameserver.model.itemcontainer.Inventory;
 import org.l2jmobius.gameserver.model.options.OptionSkillHolder;
 import org.l2jmobius.gameserver.model.options.Options;
 import org.l2jmobius.gameserver.model.skill.BuffInfo;
 import org.l2jmobius.gameserver.model.skill.Skill;
 import org.l2jmobius.gameserver.model.skill.enums.AcquireSkillType;
+import org.l2jmobius.gameserver.model.skill.holders.EnchantSkillGroup.EnchantSkillHolder;
+import org.l2jmobius.gameserver.model.skill.holders.EnchantSkillLearn;
 import org.l2jmobius.gameserver.model.skill.holders.SkillLearn;
 import org.l2jmobius.gameserver.config.PlayerConfig;
 import org.l2jmobius.gameserver.data.AugmentationData;
@@ -93,6 +100,7 @@ import org.l2jmobius.gameserver.network.SystemMessageId;
 import org.l2jmobius.gameserver.network.serverpackets.AcquireSkillList;
 import org.l2jmobius.gameserver.network.serverpackets.BuyList;
 import org.l2jmobius.gameserver.network.serverpackets.ExBuySellList;
+import org.l2jmobius.gameserver.network.serverpackets.ExEnchantSkillInfo;
 import org.l2jmobius.gameserver.network.serverpackets.HennaEquipList;
 import org.l2jmobius.gameserver.network.serverpackets.HennaRemoveList;
 import org.l2jmobius.gameserver.network.serverpackets.MagicSkillUse;
@@ -135,6 +143,7 @@ public class HomeBoard implements IParseBoardHandler
 		"_bbssymbol",
 		"_bbsraidboss",
 		"_bbsmassenchant",
+		"_bbsskillenchant",
 		"_bbsaugmentpick"
 	};
 	
@@ -484,6 +493,10 @@ public class HomeBoard implements IParseBoardHandler
 		else if (command.startsWith("_bbsmassenchant"))
 		{
 			returnHtml = handleMassEnchantCommand(command, player);
+		}
+		else if (command.startsWith("_bbsskillenchant"))
+		{
+			returnHtml = handleSkillEnchantCommand(command, player);
 		}
 		else if (command.startsWith("_bbsaugmentpick"))
 		{
@@ -1742,6 +1755,10 @@ public class HomeBoard implements IParseBoardHandler
 			{
 				return buildMassEnchantItemList(player);
 			}
+			case "category":
+			{
+				return parts.length > 2 ? buildMassEnchantItemList(player, parts[2]) : buildMassEnchantItemList(player);
+			}
 			case "scroll":
 			{
 				if (parts.length > 2)
@@ -1767,28 +1784,75 @@ public class HomeBoard implements IParseBoardHandler
 
 	private static String buildMassEnchantItemList(Player player)
 	{
-		final StringBuilder html = subclassPageHeader("Enchant Rapido", "Escolha o item que deseja enchantar. Sem precisar arrastar nada, so escolher o scroll e a quantidade.");
-		html.append("<tr><td align=center><button value=\"Comprar Scrolls\" action=\"bypass _bbsmultisell;600012,custom/main\" width=180 height=26 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		final StringBuilder html = subclassPageHeader("Enchant Rapido", "Escolha uma categoria para ver somente os itens correspondentes.");
+		final String[][] categories = { { "WEAPONS", "Weapons" }, { "ARMORS", "Armors" }, { "JEWELRY", "Jewelry" }, { "BELT", "Belt" }, { "TATTOOS", "Tattoos" } };
+		html.append("<tr><td align=center><table width=420>");
+		for (int i = 0; i < categories.length; i++)
+		{
+			if ((i % 2) == 0)
+			{
+				html.append("<tr>");
+			}
+			html.append("<td align=center><button value=\"").append(categories[i][1]).append("\" action=\"bypass _bbsmassenchant;category;").append(categories[i][0]).append("\" width=190 height=28 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+			if (((i % 2) == 1) || (i == (categories.length - 1)))
+			{
+				html.append("</tr>");
+			}
+		}
+		html.append("</table></td></tr>");
 		html.append("<tr><td height=8></td></tr>");
-		boolean any = false;
+		html.append("<tr><td align=center><button value=\"Comprar Scrolls\" action=\"bypass _bbsmultisell;600012,custom/main\" width=180 height=26 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		return subclassPageFooter(html, "_bbstop;custom/main.html");
+	}
+
+	private static String buildMassEnchantItemList(Player player, String category)
+	{
+		final List<Item> items = new ArrayList<>();
 		for (Item item : player.getInventory().getItems())
 		{
-			if ((item.getOwnerId() != player.getObjectId()) || !item.isEnchantable())
+			if ((item.getOwnerId() == player.getObjectId()) && item.isEnchantable() && category.equals(getMassEnchantCategory(item)))
 			{
-				continue;
+				items.add(item);
 			}
-			any = true;
+		}
+		items.sort(Comparator.comparing(Item::getName, String.CASE_INSENSITIVE_ORDER));
+		final StringBuilder html = subclassPageHeader("Enchant Rapido: " + category, "Itens em ordem alfabetica.");
+		for (Item item : items)
+		{
 			html.append("<tr><td align=center><table width=430><tr>");
 			html.append("<td width=36 align=center><img src=\"").append(item.getTemplate().getIcon()).append("\" width=32 height=32></td>");
 			html.append("<td width=290>").append(item.getName()).append(item.getEnchantLevel() > 0 ? (" +" + item.getEnchantLevel()) : "").append(item.isEquipped() ? " (equipado)" : "").append("</td>");
 			html.append("<td width=100 align=center><button value=\"Escolher\" action=\"bypass _bbsmassenchant;scroll;").append(item.getObjectId()).append("\" width=90 height=22 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 			html.append("</tr></table></td></tr>");
 		}
-		if (!any)
+		if (items.isEmpty())
 		{
-			html.append("<tr><td align=center><font color=AAAAAA>Nenhum item enchantavel encontrado.</font></td></tr>");
+			html.append("<tr><td align=center><font color=AAAAAA>Nenhum item enchantavel nesta categoria.</font></td></tr>");
 		}
+		html.append("<tr><td height=8></td></tr><tr><td align=center><button value=\"Categorias\" action=\"bypass _bbsmassenchant;itemlist\" width=180 height=24 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		return subclassPageFooter(html, "_bbstop;custom/main.html");
+	}
+
+	private static String getMassEnchantCategory(Item item)
+	{
+		if (item.isWeapon())
+		{
+			return "WEAPONS";
+		}
+		if (item.getName().toLowerCase(Locale.ROOT).contains("tattoo"))
+		{
+			return "TATTOOS";
+		}
+		final BodyPart bodyPart = item.getTemplate().getBodyPart();
+		if (bodyPart == BodyPart.BELT)
+		{
+			return "BELT";
+		}
+		if ((bodyPart == BodyPart.NECK) || (bodyPart == BodyPart.R_EAR) || (bodyPart == BodyPart.L_EAR) || (bodyPart == BodyPart.LR_EAR) || (bodyPart == BodyPart.R_FINGER) || (bodyPart == BodyPart.L_FINGER) || (bodyPart == BodyPart.LR_FINGER))
+		{
+			return "JEWELRY";
+		}
+		return "ARMORS";
 	}
 
 	private static String buildMassEnchantScrollList(Player player, int itemObjId)
@@ -1940,16 +2004,304 @@ public class HomeBoard implements IParseBoardHandler
 		return subclassPageFooter(html, "_bbstop;custom/main.html");
 	}
 
+	// ============ Mass Skill Enchant (repeats skill-enchant attempts server-side, mirrors RequestExEnchantSkill(Safe)) ============
+	private static final int[] SKILLENCHANT_QUANTITIES = { 1, 5, 10, 25 };
+
+	private static String handleSkillEnchantCommand(String command, Player player)
+	{
+		final String[] parts = command.split(";");
+		final String action = parts.length > 1 ? parts[1] : "list";
+		switch (action)
+		{
+			case "list":
+			{
+				return buildSkillEnchantList(player);
+			}
+			case "skill":
+			{
+				if (parts.length > 2)
+				{
+					return buildSkillEnchantRouteOrMode(player, Integer.parseInt(parts[2]));
+				}
+				return buildSkillEnchantList(player);
+			}
+			case "mode":
+			{
+				if (parts.length > 4)
+				{
+					return buildSkillEnchantModeList(player, Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+				}
+				return buildSkillEnchantList(player);
+			}
+			case "run":
+			{
+				if (parts.length > 5)
+				{
+					return runSkillEnchant(player, Integer.parseInt(parts[2]), Integer.parseInt(parts[3]), parts[4], Integer.parseInt(parts[5]));
+				}
+				return buildSkillEnchantList(player);
+			}
+			default:
+			{
+				return buildSkillEnchantList(player);
+			}
+		}
+	}
+
+	private static String buildSkillEnchantList(Player player)
+	{
+		final StringBuilder html = subclassPageHeader("Enchant Skill", "Escolha uma skill para enchantar automaticamente. Requer 3rd class e level 76+.");
+		final List<Skill> skills = new ArrayList<>(player.getAllSkills());
+		skills.sort(Comparator.comparing(Skill::getName, String.CASE_INSENSITIVE_ORDER));
+		boolean any = false;
+		final java.util.Set<Integer> seenSkillIds = new java.util.HashSet<>();
+		for (Skill skill : skills)
+		{
+			if (!seenSkillIds.add(skill.getId()))
+			{
+				continue;
+			}
+			final EnchantSkillLearn s = EnchantSkillGroupsData.getInstance().getSkillEnchantmentBySkillId(skill.getId());
+			if (s == null)
+			{
+				continue;
+			}
+			any = true;
+			final int currentLevel = player.getSkillLevel(skill.getId());
+			html.append("<tr><td align=center><table width=430><tr>");
+			html.append("<td width=330>").append(skill.getName()).append(" (").append(skillEnchantDisplay(s, currentLevel)).append(")</td>");
+			html.append("<td width=100 align=center><button value=\"Escolher\" action=\"bypass _bbsskillenchant;skill;").append(skill.getId()).append("\" width=90 height=22 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+			html.append("</tr></table></td></tr>");
+		}
+		if (!any)
+		{
+			html.append("<tr><td align=center><font color=AAAAAA>Nenhuma skill enchantavel encontrada.</font></td></tr>");
+		}
+		return subclassPageFooter(html, "_bbstop;custom/main.html");
+	}
+
+	private static String skillEnchantDisplay(EnchantSkillLearn s, int currentLevel)
+	{
+		return (currentLevel == s.getBaseLevel()) ? "+0" : ("+" + (currentLevel % 100));
+	}
+
+	private static String buildSkillEnchantRouteOrMode(Player player, int skillId)
+	{
+		final EnchantSkillLearn s = EnchantSkillGroupsData.getInstance().getSkillEnchantmentBySkillId(skillId);
+		if (s == null)
+		{
+			player.sendMessage("Essa skill nao pode ser enchantada.");
+			return buildSkillEnchantList(player);
+		}
+		final int currentLevel = player.getSkillLevel(skillId);
+		if (currentLevel != s.getBaseLevel())
+		{
+			return buildSkillEnchantModeList(player, skillId, EnchantSkillLearn.getEnchantRoute(currentLevel));
+		}
+		if (s.getAllRoutes().size() == 1)
+		{
+			return buildSkillEnchantModeList(player, skillId, s.getAllRoutes().iterator().next());
+		}
+
+		final Skill skill = SkillData.getInstance().getSkill(skillId, currentLevel);
+		final StringBuilder html = subclassPageHeader("Enchant Skill: " + (skill != null ? skill.getName() : skillId), "Escolha a rota de enchant.");
+		for (int route : s.getAllRoutes())
+		{
+			html.append("<tr><td align=center><button value=\"Rota ").append(route).append("\" action=\"bypass _bbsskillenchant;mode;").append(skillId).append(";").append(route).append("\" width=200 height=26 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		}
+		return subclassPageFooter(html, "_bbsskillenchant;list");
+	}
+
+	private static String buildSkillEnchantModeList(Player player, int skillId, int route)
+	{
+		final EnchantSkillLearn s = EnchantSkillGroupsData.getInstance().getSkillEnchantmentBySkillId(skillId);
+		if (s == null)
+		{
+			player.sendMessage("Essa skill nao pode ser enchantada.");
+			return buildSkillEnchantList(player);
+		}
+		final int currentLevel = player.getSkillLevel(skillId);
+		final Skill skill = SkillData.getInstance().getSkill(skillId, currentLevel);
+		final StringBuilder html = subclassPageHeader("Enchant Skill: " + (skill != null ? skill.getName() : skillId), "Nivel atual: " + skillEnchantDisplay(s, currentLevel) + ". Escolha o modo e quantas tentativas seguidas aplicar.");
+
+		if ((currentLevel != s.getBaseLevel()) && s.isMaxEnchant(currentLevel))
+		{
+			html.append("<tr><td align=center><font color=AAAAAA>Essa skill ja esta no nivel maximo de enchant.</font></td></tr>");
+			return subclassPageFooter(html, "_bbsskillenchant;list");
+		}
+
+		final int normalBooks = (int) player.getInventory().getInventoryItemCount(EnchantSkillGroupsData.NORMAL_ENCHANT_BOOK, -1);
+		final int blessedBooks = (int) player.getInventory().getInventoryItemCount(EnchantSkillGroupsData.SAFE_ENCHANT_BOOK, -1);
+		appendSkillEnchantModeRow(html, "Normal (reseta se falhar)", "NORMAL", skillId, route, normalBooks);
+		appendSkillEnchantModeRow(html, "Blessed (mantem nivel se falhar)", "BLESSED", skillId, route, blessedBooks);
+
+		html.append("<tr><td height=8></td></tr>");
+		html.append("<tr><td align=center><button value=\"Comprar Codex\" action=\"bypass _bbsmultisell;600031,custom/main\" width=180 height=26 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		return subclassPageFooter(html, "_bbsskillenchant;list");
+	}
+
+	private static void appendSkillEnchantModeRow(StringBuilder html, String label, String mode, int skillId, int route, int booksOwned)
+	{
+		html.append("<tr><td align=center><table width=440><tr>");
+		html.append("<td width=230>").append(label).append(" (Codex: ").append(booksOwned).append(")</td>");
+		for (int qty : SKILLENCHANT_QUANTITIES)
+		{
+			html.append("<td width=45 align=center><button value=\"x").append(qty).append("\" action=\"bypass _bbsskillenchant;run;").append(skillId).append(";").append(route).append(";").append(mode).append(";").append(qty).append("\" width=40 height=22 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		}
+		html.append("</tr></table></td></tr>");
+	}
+
+	private static String runSkillEnchant(Player player, int skillId, int route, String mode, int attempts)
+	{
+		final EnchantSkillLearn s = EnchantSkillGroupsData.getInstance().getSkillEnchantmentBySkillId(skillId);
+		if (s == null)
+		{
+			player.sendMessage("Essa skill nao pode ser enchantada.");
+			return buildSkillEnchantList(player);
+		}
+		if (player.getPlayerClass().level() < 3)
+		{
+			player.sendMessage("Requer terceira mudanca de classe para enchantar skills.");
+			return buildSkillEnchantList(player);
+		}
+		if (player.getLevel() < 76)
+		{
+			player.sendMessage("Requer level 76+ para enchantar skills.");
+			return buildSkillEnchantList(player);
+		}
+		if (!player.isAllowedToEnchantSkills())
+		{
+			player.sendMessage("Voce nao pode enchantar skills nesse estado (combate/transformado/em veiculo).");
+			return buildSkillEnchantList(player);
+		}
+
+		final boolean blessed = "BLESSED".equals(mode);
+		if (!blessed && player.isSellingBuffs())
+		{
+			player.sendMessage("Voce nao pode enchantar skills vendendo buffs.");
+			return buildSkillEnchantList(player);
+		}
+
+		final int startLevel = player.getSkillLevel(skillId);
+		int successes = 0;
+		int failures = 0;
+		String stopReason = "Tentativas concluidas.";
+
+		for (int i = 0; i < attempts; i++)
+		{
+			final int currentLevel = player.getSkillLevel(skillId);
+			final int target;
+			if (currentLevel == s.getBaseLevel())
+			{
+				target = (route * 100) + 1;
+			}
+			else
+			{
+				if (s.isMaxEnchant(currentLevel))
+				{
+					stopReason = "Skill ja esta no nivel maximo de enchant.";
+					break;
+				}
+				target = currentLevel + 1;
+			}
+
+			final EnchantSkillHolder esd = s.getEnchantSkillHolder(target);
+			final Skill skill = SkillData.getInstance().getSkill(skillId, target);
+			if ((esd == null) || (skill == null))
+			{
+				stopReason = "Rota de enchant invalida.";
+				break;
+			}
+
+			final int costMultiplier = blessed ? EnchantSkillGroupsData.SAFE_ENCHANT_COST_MULTIPLIER : EnchantSkillGroupsData.NORMAL_ENCHANT_COST_MULTIPLIER;
+			final int requiredSp = esd.getSpCost() * costMultiplier;
+			final int requiredAdena = esd.getAdenaCost() * costMultiplier;
+			final boolean usesBook = blessed || ((target % 100) == 1);
+			final boolean needsBook = blessed || (PlayerConfig.ES_SP_BOOK_NEEDED && usesBook);
+			final int bookItemId = blessed ? EnchantSkillGroupsData.SAFE_ENCHANT_BOOK : EnchantSkillGroupsData.NORMAL_ENCHANT_BOOK;
+
+			if (player.getSp() < requiredSp)
+			{
+				stopReason = "SP insuficiente.";
+				break;
+			}
+
+			Item spb = null;
+			if (needsBook)
+			{
+				spb = player.getInventory().getItemByItemId(bookItemId);
+				if (spb == null)
+				{
+					stopReason = blessed ? "Falta Giant's Codex - Mastery." : "Falta Giant's Codex.";
+					break;
+				}
+			}
+
+			if (player.getInventory().getAdena() < requiredAdena)
+			{
+				stopReason = "Adena insuficiente.";
+				break;
+			}
+
+			boolean check = player.getStat().removeExpAndSp(0, requiredSp, false);
+			if (needsBook)
+			{
+				check &= player.destroyItem(ItemProcessType.NONE, spb.getObjectId(), 1, player, true);
+			}
+			check &= player.destroyItemByItemId(null, Inventory.ADENA_ID, requiredAdena, player, true);
+			if (!check)
+			{
+				stopReason = "Falha ao consumir os itens necessarios.";
+				break;
+			}
+
+			final int rate = esd.getRate(player);
+			if (Rnd.get(100) <= rate)
+			{
+				player.addSkill(skill, true);
+				successes++;
+			}
+			else
+			{
+				failures++;
+				if (!blessed)
+				{
+					player.addSkill(SkillData.getInstance().getSkill(skillId, s.getBaseLevel()), true);
+					stopReason = "Falhou e a skill foi reiniciada para o nivel base.";
+					break;
+				}
+			}
+		}
+
+		player.updateUserInfo();
+		player.sendSkillList();
+		final int afterLevel = player.getSkillLevel(skillId);
+		player.sendPacket(new ExEnchantSkillInfo(skillId, afterLevel));
+		player.updateShortcuts(skillId, afterLevel);
+
+		final Skill afterSkill = SkillData.getInstance().getSkill(skillId, afterLevel);
+		final StringBuilder html = subclassPageHeader("Resultado", stopReason);
+		html.append("<tr><td align=center>Sucessos: <font color=LEVEL>").append(successes).append("</font> / Falhas: <font color=FF6666>").append(failures).append("</font></td></tr>");
+		html.append("<tr><td align=center>").append(afterSkill != null ? afterSkill.getName() : skillId).append(": ").append(skillEnchantDisplay(s, startLevel)).append(" -> ").append(skillEnchantDisplay(s, afterLevel)).append("</td></tr>");
+		html.append("<tr><td height=8></td></tr>");
+		if (!((afterLevel != s.getBaseLevel()) && s.isMaxEnchant(afterLevel)))
+		{
+			html.append("<tr><td align=center><button value=\"Continuar com essa skill/modo\" action=\"bypass _bbsskillenchant;mode;").append(skillId).append(";").append(route).append("\" width=220 height=26 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		}
+		html.append("<tr><td height=6></td></tr>");
+		html.append("<tr><td align=center><button value=\"Escolher outra skill\" action=\"bypass _bbsskillenchant;list\" width=200 height=24 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		return subclassPageFooter(html, "_bbstop;custom/main.html");
+	}
+
 	// ============ Augment Pick (choose an exact augment option, pay adena, apply to a chosen weapon) ============
 	private static final long AUGMENTPICK_PRICE = 10000000L;
 	private static final int AUGMENTPICK_PAGE_SIZE = 15;
 	private static final int AUGMENTPICK_MAX_OPTION_ID = 30000;
-	// Retail always packs a real stat option in the low slot (stat12) and the skill in the high slot
-	// (stat34) -- see AugmentationData's own generators, which always do "(stat34 << 16) + stat12" with
-	// stat12 pulled from a stats-only id range. A skill-only augment (skill id in stat12, 0 in stat34) is
-	// backwards from that convention and renders as a broken/black icon client-side. Option id 1 is a
-	// harmless small P.Def bonus (+15.45) used here purely to keep the low slot valid.
-	private static final int AUGMENTPICK_FILLER_STAT_OPTION_ID = 1;
+	private static final int AUGMENTPICK_MIN_SKILL_LEVEL = 10;
+	private static final int[] AUGMENTPICK_STAT_OPTIONS = { 24699, 24700, 24701, 24702 }; // STR, CON, INT, MEN +1.
+	private static final String[] AUGMENTPICK_STAT_NAMES = { "STR +1", "CON +1", "INT +1", "MEN +1" };
+	// Augmentation packs a stat option in the low slot (stat12) and the selected skill in the high slot
+	// (stat34). The player now explicitly chooses the +1 stat rather than receiving a hidden P.Def filler.
 	private static List<AugmentOptionEntry> augmentPickPassive;
 	private static List<AugmentOptionEntry> augmentPickChance;
 	private static List<AugmentOptionEntry> augmentPickActive;
@@ -1985,17 +2337,17 @@ public class HomeBoard implements IParseBoardHandler
 			{
 				continue;
 			}
-			if (option.hasPassiveSkill())
+			if (option.hasPassiveSkill() && (option.getPassiveSkill().getLevel() >= AUGMENTPICK_MIN_SKILL_LEVEL))
 			{
 				final Skill skill = option.getPassiveSkill();
 				passive.add(new AugmentOptionEntry(id, skill.getName() + " Lv" + skill.getLevel()));
 			}
-			else if (option.hasActiveSkill())
+			else if (option.hasActiveSkill() && (option.getActiveSkill().getLevel() >= AUGMENTPICK_MIN_SKILL_LEVEL))
 			{
 				final Skill skill = option.getActiveSkill();
 				active.add(new AugmentOptionEntry(id, skill.getName() + " Lv" + skill.getLevel()));
 			}
-			else if (option.hasActivationSkills())
+			else if (option.hasActivationSkills() && (option.getActivationSkills().get(0).getSkill().getLevel() >= AUGMENTPICK_MIN_SKILL_LEVEL))
 			{
 				final OptionSkillHolder holder = option.getActivationSkills().get(0);
 				final Skill skill = holder.getSkill();
@@ -2062,15 +2414,23 @@ public class HomeBoard implements IParseBoardHandler
 			{
 				if (parts.length > 2)
 				{
-					return buildAugmentPickWeaponList(player, Integer.parseInt(parts[2]));
+					return buildAugmentPickStatList(player, Integer.parseInt(parts[2]));
+				}
+				return buildAugmentPickMenu(player);
+			}
+			case "stat":
+			{
+				if (parts.length > 3)
+				{
+					return buildAugmentPickWeaponList(player, Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
 				}
 				return buildAugmentPickMenu(player);
 			}
 			case "apply":
 			{
-				if (parts.length > 3)
+				if (parts.length > 4)
 				{
-					return applyAugmentPick(player, Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+					return applyAugmentPick(player, Integer.parseInt(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
 				}
 				return buildAugmentPickMenu(player);
 			}
@@ -2120,9 +2480,36 @@ public class HomeBoard implements IParseBoardHandler
 		return subclassPageFooter(html, "_bbsaugmentpick");
 	}
 
-	private static String buildAugmentPickWeaponList(Player player, int optionId)
+	private static String buildAugmentPickStatList(Player player, int optionId)
 	{
 		if (OptionData.getInstance().getOptions(optionId) == null)
+		{
+			player.sendMessage("Augment invalido.");
+			return buildAugmentPickMenu(player);
+		}
+		final StringBuilder html = subclassPageHeader("Bonus de atributo", "Escolha o atributo +1 que acompanhara a habilidade selecionada.");
+		for (int i = 0; i < AUGMENTPICK_STAT_OPTIONS.length; i++)
+		{
+			html.append("<tr><td align=center><button value=\"").append(AUGMENTPICK_STAT_NAMES[i]).append("\" action=\"bypass _bbsaugmentpick;stat;").append(optionId).append(";").append(AUGMENTPICK_STAT_OPTIONS[i]).append("\" width=180 height=26 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		}
+		return subclassPageFooter(html, "_bbsaugmentpick");
+	}
+
+	private static boolean isAugmentPickStatOption(int optionId)
+	{
+		for (int statOptionId : AUGMENTPICK_STAT_OPTIONS)
+		{
+			if (statOptionId == optionId)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static String buildAugmentPickWeaponList(Player player, int optionId, int statOptionId)
+	{
+		if ((OptionData.getInstance().getOptions(optionId) == null) || !isAugmentPickStatOption(statOptionId))
 		{
 			player.sendMessage("Augment invalido.");
 			return buildAugmentPickMenu(player);
@@ -2140,7 +2527,7 @@ public class HomeBoard implements IParseBoardHandler
 			html.append("<tr><td align=center><table width=430><tr>");
 			html.append("<td width=36 align=center><img src=\"").append(item.getTemplate().getIcon()).append("\" width=32 height=32></td>");
 			html.append("<td width=290>").append(item.getName()).append(item.getEnchantLevel() > 0 ? (" +" + item.getEnchantLevel()) : "").append("</td>");
-			html.append("<td width=100 align=center><button value=\"Aplicar\" action=\"bypass _bbsaugmentpick;apply;").append(optionId).append(";").append(item.getObjectId()).append("\" width=90 height=22 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+			html.append("<td width=100 align=center><button value=\"Aplicar\" action=\"bypass _bbsaugmentpick;apply;").append(optionId).append(";").append(statOptionId).append(";").append(item.getObjectId()).append("\" width=90 height=22 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 			html.append("</tr></table></td></tr>");
 		}
 		if (!any)
@@ -2150,9 +2537,9 @@ public class HomeBoard implements IParseBoardHandler
 		return subclassPageFooter(html, "_bbsaugmentpick");
 	}
 
-	private static String applyAugmentPick(Player player, int optionId, int itemObjId)
+	private static String applyAugmentPick(Player player, int optionId, int statOptionId, int itemObjId)
 	{
-		if (OptionData.getInstance().getOptions(optionId) == null)
+		if ((OptionData.getInstance().getOptions(optionId) == null) || !isAugmentPickStatOption(statOptionId))
 		{
 			player.sendMessage("Augment invalido.");
 			return buildAugmentPickMenu(player);
@@ -2168,7 +2555,7 @@ public class HomeBoard implements IParseBoardHandler
 		if (player.getInventory().getInventoryItemCount(57, -1) < AUGMENTPICK_PRICE)
 		{
 			player.sendMessage("Voce precisa de " + AUGMENTPICK_PRICE + " adena.");
-			return buildAugmentPickWeaponList(player, optionId);
+			return buildAugmentPickWeaponList(player, optionId, statOptionId);
 		}
 
 		if (target.isEquipped())
@@ -2185,10 +2572,10 @@ public class HomeBoard implements IParseBoardHandler
 		if (!player.reduceAdena(ItemProcessType.FEE, AUGMENTPICK_PRICE, target, true))
 		{
 			player.sendMessage("Falha ao cobrar adena.");
-			return buildAugmentPickWeaponList(player, optionId);
+			return buildAugmentPickWeaponList(player, optionId, statOptionId);
 		}
 
-		target.setAugmentation(new Augmentation((optionId << 16) + AUGMENTPICK_FILLER_STAT_OPTION_ID));
+		target.setAugmentation(new Augmentation((optionId << 16) + statOptionId));
 
 		final InventoryUpdate iu = new InventoryUpdate();
 		iu.addModifiedItem(target);
