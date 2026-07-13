@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../xsd/items.xsd">
+	<item id="26638" type="Armor" name="Tattoo of Fight">
+		<set name="icon" val="icon.etc_ketra_badge_captn_i01" />
+		<set name="default_action" val="EQUIP" />
+		<set name="armor_type" val="LIGHT" />
+		<set name="bodypart" val="underwear" />
+		<set name="immediate_effect" val="true" />
+		<set name="crystal_count" val="2542776" />
+		<set name="crystal_type" val="S" />
+		<set name="material" val="CLOTH" />
+		<set name="weight" val="4050" />
+		<set name="price" val="117000" />
+		<set name="enchant_enabled" val="true" />
+		<stats>
+			<stat type="critRate">13</stat>
+			<stat type="maxHp">53</stat>
+			<stat type="regHp">53</stat>
+			<stat type="pDef">53</stat>
+		</stats>
+	</item>
+	<item id="26639" type="Armor" name="Tattoo of Mage">
+		<set name="icon" val="icon.etc_ketra_badge_captn_i01" />
+		<set name="default_action" val="EQUIP" />
+		<set name="armor_type" val="LIGHT" />
+		<set name="bodypart" val="underwear" />
+		<set name="immediate_effect" val="true" />
+		<set name="crystal_count" val="2542776" />
+		<set name="crystal_type" val="S" />
+		<set name="material" val="CLOTH" />
+		<set name="weight" val="4050" />
+		<set name="price" val="117000" />
+		<set name="enchant_enabled" val="true" />
+		<stats>
+			<stat type="critRate">13</stat>
+			<stat type="maxHp">53</stat>
+			<stat type="regHp">53</stat>
+			<stat type="mDef">53</stat>
+		</stats>
+	</item>
+	<item id="26640" type="Armor" name="Tattoo of Donator">
+		<set name="icon" val="icon.etc_ketra_badge_officer_i02" />
+		<set name="default_action" val="EQUIP" />
+		<set name="armor_type" val="LIGHT" />
+		<set name="bodypart" val="underwear" />
+		<set name="immediate_effect" val="true" />
+		<set name="crystal_count" val="2542776" />
+		<set name="crystal_type" val="S" />
+		<set name="material" val="CLOTH" />
+		<set name="weight" val="4000" />
+		<set name="price" val="117000" />
+		<set name="enchant_enabled" val="true" />
+		<stats>
+			<stat type="critRate">23</stat>
+			<stat type="maxHp">73</stat>
+			<stat type="regHp">73</stat>
+			<stat type="mDef">73</stat>
+			<stat type="pDef">73</stat>
+		</stats>
+	</item>
+</list>

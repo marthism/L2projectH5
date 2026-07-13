@@ -3,29 +3,29 @@
 	<!-- General armor enchant group. -->
 	<enchantRateGroup name="ARMOR_GROUP">
 		<current enchant="0-2" chance="100" />
-		<current enchant="3-15" chance="66" />
-		<current enchant="16-65535" chance="0" />
+		<current enchant="3-100" chance="66" />
+		<current enchant="101-65535" chance="0" />
 	</enchantRateGroup>
 
 	<!-- General full armor enchant group. -->
 	<enchantRateGroup name="FULL_ARMOR_GROUP">
 		<current enchant="0-3" chance="100" />
-		<current enchant="4-15" chance="66" />
-		<current enchant="16-65535" chance="0" />
+		<current enchant="4-100" chance="66" />
+		<current enchant="101-65535" chance="0" />
 	</enchantRateGroup>
 
 	<!-- General fighter weapon enchant group. -->
 	<enchantRateGroup name="FIGHTER_WEAPON_GROUP">
 		<current enchant="0-2" chance="100" />
-		<current enchant="3-15" chance="66" />
-		<current enchant="16-65535" chance="0" />
+		<current enchant="3-100" chance="66" />
+		<current enchant="101-65535" chance="0" />
 	</enchantRateGroup>
 
 	<!-- General mage weapon enchant group. -->
 	<enchantRateGroup name="MAGE_WEAPON_GROUP">
 		<current enchant="0-2" chance="100" />
-		<current enchant="3-15" chance="66" />
-		<current enchant="16-65535" chance="0" />
+		<current enchant="3-100" chance="66" />
+		<current enchant="101-65535" chance="0" />
 	</enchantRateGroup>
 
 	<!-- Blessed scrolls enchant group: 100% up to +20, then -1% every 5 levels down to +100. -->
@@ -46,7 +46,8 @@
 		<current enchant="80-84" chance="87" />
 		<current enchant="85-89" chance="86" />
 		<current enchant="90-94" chance="85" />
-		<current enchant="95-65535" chance="84" />
+		<current enchant="95-100" chance="84" />
+		<current enchant="101-65535" chance="0" />
 	</enchantRateGroup>
 
 	<!-- Default scrolls enchanting route line. -->
@@ -81,7 +82,8 @@
 		</enchantRate>
 	</enchantScrollGroup>
 
-	<!-- Blessed scrolls enchanting route line: every slot uses the same declining-chance curve. -->
+	<!-- Blessed scrolls enchanting route line. Keep physical and magic weapons in separate
+	     entries: magicWeapon is a property of the whole enchantRate entry, not of each item. -->
 	<enchantScrollGroup id="1">
 		<enchantRate group="BLESSED_GROUP">
 			<item slot="lhand" />
@@ -96,8 +98,12 @@
 			<item slot="belt" />
 			<item slot="shirt" />
 			<item slot="fullarmor" />
+		</enchantRate>
+		<enchantRate group="BLESSED_GROUP">
 			<item slot="rhand" magicWeapon="false" />
 			<item slot="lrhand" magicWeapon="false" />
+		</enchantRate>
+		<enchantRate group="BLESSED_GROUP">
 			<item slot="rhand" magicWeapon="true" />
 			<item slot="lrhand" magicWeapon="true" />
 		</enchantRate>

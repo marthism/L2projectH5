@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../xsd/items.xsd">
+	<item id="100000" type="Armor" name="Gold Dragon AS">
+		<set name="icon" val="icon.armor_t2000_ul_i00" />
+		<set name="default_action" val="EQUIP" />
+		<set name="armor_type" val="HEAVY" />
+		<set name="bodypart" val="chest" />
+		<set name="immediate_effect" val="true" />
+		<set name="crystal_count" val="0" />
+		<set name="crystal_type" val="S" />
+		<set name="material" val="FINE_STEEL" />
+		<set name="weight" val="240" />
+		<set name="price" val="0" />
+		<set name="enchant_enabled" val="true" />
+		<stats>
+			<stat type="pDef">0</stat>
+			<stat type="mDef">0</stat>
+		</stats>
+	</item>
+	<item id="100001" type="Armor" name="Gold Dragon AS and cloak 1">
+		<set name="icon" val="icon.armor_t2000_ul_i00" />
+		<set name="default_action" val="EQUIP" />
+		<set name="armor_type" val="HEAVY" />
+		<set name="bodypart" val="chest" />
+		<set name="immediate_effect" val="true" />
+		<set name="crystal_count" val="0" />
+		<set name="crystal_type" val="S" />
+		<set name="material" val="FINE_STEEL" />
+		<set name="weight" val="240" />
+		<set name="price" val="0" />
+		<set name="enchant_enabled" val="true" />
+		<stats>
+			<stat type="pDef">0</stat>
+			<stat type="mDef">0</stat>
+		</stats>
+	</item>
+	<item id="100002" type="Armor" name="Gold Dragon AS and cloak 2">
+		<set name="icon" val="icon.armor_t2000_ul_i00" />
+		<set name="default_action" val="EQUIP" />
+		<set name="armor_type" val="HEAVY" />
+		<set name="bodypart" val="chest" />
+		<set name="immediate_effect" val="true" />
+		<set name="crystal_count" val="0" />
+		<set name="crystal_type" val="S" />
+		<set name="material" val="FINE_STEEL" />
+		<set name="weight" val="240" />
+		<set name="price" val="0" />
+		<set name="enchant_enabled" val="true" />
+		<stats>
+			<stat type="pDef">0</stat>
+			<stat type="mDef">0</stat>
+		</stats>
+	</item>
+	<item id="100003" type="Armor" name="Gold Dragon AS and cloak 3">
+		<set name="icon" val="icon.armor_t2000_ul_i00" />
+		<set name="default_action" val="EQUIP" />
+		<set name="armor_type" val="HEAVY" />
+		<set name="bodypart" val="chest" />
+		<set name="immediate_effect" val="true" />
+		<set name="crystal_count" val="0" />
+		<set name="crystal_type" val="S" />
+		<set name="material" val="FINE_STEEL" />
+		<set name="weight" val="240" />
+		<set name="price" val="0" />
+		<set name="enchant_enabled" val="true" />
+		<stats>
+			<stat type="pDef">0</stat>
+			<stat type="mDef">0</stat>
+		</stats>
+	</item>
+</list>

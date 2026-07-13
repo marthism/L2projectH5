@@ -35,12 +35,19 @@ public class AutoPotion implements IVoicedCommandHandler
 		"apon",
 		"apoff",
 		"potionon",
-		"potionoff"
+		"potionoff",
+		"autopotion"
 	};
+	private final CustomAutoPotion _customAutoPotion = new CustomAutoPotion();
 	
 	@Override
 	public boolean onCommand(String command, Player activeChar, String target)
 	{
+		if ("autopotion".equals(command))
+		{
+			return _customAutoPotion.onCommand(command, activeChar, target);
+		}
+
 		if (!AutoPotionsConfig.AUTO_POTIONS_ENABLED || (activeChar == null))
 		{
 			return false;

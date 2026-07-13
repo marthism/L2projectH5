@@ -159,6 +159,13 @@ function Write-Multisell([string]$root, [int]$id, [object[]]$entries) {
         }
     }
     $lines.Add('</list>')
+    if (($lines | Where-Object { $_ -match '<item>' }).Count -eq 0) {
+        # An empty <list> (no <item>) fails multisell.xsd validation on boot. If this category has
+        # nothing to sell right now (e.g. D-grade has no Special Ability weapons in this data), skip
+        # writing it entirely and remove any stale file left over from a previous run.
+        if (Test-Path $path) { Remove-Item -LiteralPath $path -Force }
+        return
+    }
     [IO.File]::WriteAllLines($path, $lines, [Text.UTF8Encoding]::new($false))
 }
 
@@ -282,12 +289,15 @@ function Build-ArmorSetsFromTable([object[]]$allItems, [string]$grade) {
             $shield = @(Get-ArmorPieceByName $shieldPool $shieldDef.Shield)
             if ($shield.Count -gt 0) { $members.Add($shield[0]) }
         }
+        # Show the body armor's icon first in the shop list (not a helmet/circlet just because the
+        # spreadsheet happened to list it first) -- client renders whichever production is first.
+        $displayOrder = @($members | Sort-Object { if ($_.BodyPart -match '(?i)(chest|fullarmor|alldress|onepiece)') { 0 } else { 1 } })
         $setPrice = [long](($members | Measure-Object Price -Sum).Sum)
         $sets.Add([pscustomobject]@{
-            Id = $members[0].Id
+            Id = $displayOrder[0].Id
             Name = $def.Name
             Price = $setPrice
-            Products = @($members)
+            Products = @($displayOrder)
         })
     }
     return @($sets)
@@ -305,7 +315,9 @@ foreach ($root in @($serverGame, $sourceGame)) {
         $code = $gradeCode[$grade]
         $gradeItems = @($items | Where-Object Grade -eq $grade)
         $allWeapons = @($gradeItems | Where-Object { ($_.Type -eq 'Weapon') -and -not (Test-BossWeapon $_) })
-        $saWeapons = @($allWeapons | Where-Object Name -match '(?i) - (focus|health|acumen|haste|guidance|evasion|critical|mana|conversion|cheap|anger|light|rsk|empower|magic|quick|wide|long|back blow|hp drain|hp regeneration|mp regeneration|critical slow|critical stun|critical damage|magic hold|mana up|cheap shot)')
+        # Masterwork weapons carry an extra elemental tag before the SA (e.g. "Great Sword - Lightning - Health"),
+        # recognizable as a 3rd " - " segment; excluded so only the plain "<Weapon> - <SA>" tier is sold.
+        $saWeapons = @($allWeapons | Where-Object { ($_.Name -match '(?i) - (focus|health|acumen|haste|guidance|evasion|critical|mana|conversion|cheap|anger|light|rsk|empower|magic|quick|wide|long|back blow|hp drain|hp regeneration|mp regeneration|critical slow|critical stun|critical damage|magic hold|mana up|cheap shot)') -and ($_.Name -notmatch '(?i)^.+ - .+ - .+$') })
         $jewels = @($gradeItems | Where-Object { ($_.Type -eq 'Armor') -and ($_.BodyPart -match '(?i)(rear|lear|neck|finger)') -and ($_.Id -notin $bossJewelIds) -and ($_.Name -notmatch '(?i)blessed|enchanted') })
         Write-Multisell $root (610000 + ($code * 10) + 1) $saWeapons
         Write-Multisell $root (610000 + ($code * 10) + 3) (Build-ArmorSetsFromTable $items $grade)
@@ -347,16 +359,9 @@ foreach ($root in @($serverGame, $sourceGame)) {
     Write-Multisell $root 610100 $noGradeJewels
 
     $tattoos = @(
-        [pscustomobject]@{ Id=12067; Name='Tattoo of Fighter I'; Price=500000 },
-        [pscustomobject]@{ Id=12140; Name='Tattoo of Fighter II'; Price=1500000 },
-        [pscustomobject]@{ Id=12191; Name='Tattoo of Fighter III'; Price=3000000 },
-        [pscustomobject]@{ Id=12281; Name='Tattoo of Fighter IV'; Price=6000000 },
-        [pscustomobject]@{ Id=10207; Name='Tattoo of Fighter V'; Price=12000000 },
-        [pscustomobject]@{ Id=12040; Name='Tattoo of Mage I'; Price=500000 },
-        [pscustomobject]@{ Id=12117; Name='Tattoo of Mage II'; Price=1500000 },
-        [pscustomobject]@{ Id=12174; Name='Tattoo of Mage III'; Price=3000000 },
-        [pscustomobject]@{ Id=12219; Name='Tattoo of Mage IV'; Price=6000000 },
-        [pscustomobject]@{ Id=12290; Name='Tattoo of Mage V'; Price=12000000 }
+        [pscustomobject]@{ Id=26638; Name='Tattoo of Fight'; Price=1000000 },
+        [pscustomobject]@{ Id=26639; Name='Tattoo of Mage'; Price=1000000 },
+        [pscustomobject]@{ Id=26640; Name='Tattoo of Donator'; Price=2000000 }
     )
     Write-Multisell $root 610101 $tattoos
 

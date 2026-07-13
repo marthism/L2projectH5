@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/multisell.xsd">
 	<npcs><npc>-1</npc></npcs>
-	<item><ingredient count="325000" id="57" /><production count="1" id="394" /><production count="1" id="416" /><production count="1" id="2422" /></item>
-	<item><ingredient count="396000" id="57" /><production count="1" id="47" /><production count="1" id="58" /><production count="1" id="59" /></item>
-	<item><ingredient count="449000" id="57" /><production count="1" id="395" /><production count="1" id="417" /><production count="1" id="2424" /></item>
-	<item><ingredient count="326000" id="57" /><production count="1" id="436" /><production count="1" id="469" /><production count="1" id="2447" /></item>
-	<item><ingredient count="453000" id="57" /><production count="1" id="437" /><production count="1" id="470" /><production count="1" id="2450" /></item>
-	<item><ingredient count="597000" id="57" /><production count="1" id="2411" /><production count="1" id="352" /><production count="1" id="2378" /><production count="1" id="2493" /></item>
+	<item><ingredient count="325000" id="57" /><production count="1" id="394" /><production count="1" id="2422" /><production count="1" id="416" /></item>
+	<item><ingredient count="396000" id="57" /><production count="1" id="58" /><production count="1" id="59" /><production count="1" id="47" /></item>
+	<item><ingredient count="449000" id="57" /><production count="1" id="395" /><production count="1" id="2424" /><production count="1" id="417" /></item>
+	<item><ingredient count="326000" id="57" /><production count="1" id="436" /><production count="1" id="2447" /><production count="1" id="469" /></item>
+	<item><ingredient count="453000" id="57" /><production count="1" id="437" /><production count="1" id="2450" /><production count="1" id="470" /></item>
+	<item><ingredient count="597000" id="57" /><production count="1" id="352" /><production count="1" id="2493" /><production count="1" id="2378" /><production count="1" id="2411" /></item>
 </list>
