@@ -26,6 +26,7 @@ import org.l2jmobius.gameserver.config.NpcConfig;
 import org.l2jmobius.gameserver.config.PlayerConfig;
 import org.l2jmobius.gameserver.config.custom.ChampionMonstersConfig;
 import org.l2jmobius.gameserver.config.custom.ClassBalanceConfig;
+import org.l2jmobius.gameserver.config.custom.PlayerStatMultipliersConfig;
 import org.l2jmobius.gameserver.model.actor.Creature;
 import org.l2jmobius.gameserver.model.actor.transform.Transform;
 import org.l2jmobius.gameserver.model.item.holders.Elementals;
@@ -303,7 +304,8 @@ public class CreatureStat
 		}
 		
 		// Calculate modifiers Magic Attack
-		return Math.min(calcStat(Stat.MAGIC_ATTACK, _creature.getTemplate().getBaseMAtk() * bonusAtk, target, skill), PlayerConfig.MAX_MATK);
+		final double val = Math.min(calcStat(Stat.MAGIC_ATTACK, _creature.getTemplate().getBaseMAtk() * bonusAtk, target, skill), PlayerConfig.MAX_MATK);
+		return (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS && _creature.isPlayer()) ? val * PlayerStatMultipliersConfig.PLAYER_MATK_MULTIPLIER : val;
 	}
 	
 	/**
@@ -386,7 +388,8 @@ public class CreatureStat
 		}
 		
 		// Calculate modifiers Magic Attack
-		return calcStat(Stat.MAGIC_DEFENCE, defence, target, skill);
+		final double val = calcStat(Stat.MAGIC_DEFENCE, defence, target, skill);
+		return (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS && _creature.isPlayer()) ? val * PlayerStatMultipliersConfig.PLAYER_MDEF_MULTIPLIER : val;
 	}
 	
 	/**
@@ -561,7 +564,8 @@ public class CreatureStat
 			bonusAtk *= NpcConfig.RAID_PATTACK_MULTIPLIER;
 		}
 		
-		return Math.min(calcStat(Stat.POWER_ATTACK, _creature.getTemplate().getBasePAtk() * bonusAtk, target, null), PlayerConfig.MAX_PATK);
+		final double val = Math.min(calcStat(Stat.POWER_ATTACK, _creature.getTemplate().getBasePAtk() * bonusAtk, target, null), PlayerConfig.MAX_PATK);
+		return (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS && _creature.isPlayer()) ? val * PlayerStatMultipliersConfig.PLAYER_PATK_MULTIPLIER : val;
 	}
 	
 	/**
@@ -584,17 +588,24 @@ public class CreatureStat
 	 */
 	public double getPDef(Creature target)
 	{
+		final double val;
 		if (_creature.isPlayable() && (target != null))
 		{
 			if (target.isPlayable())
 			{
-				return ClassBalanceConfig.PVP_PHYSICAL_ATTACK_DEFENCE_MULTIPLIERS[_creature.asPlayer().getPlayerClass().getId()] * calcStat(Stat.POWER_DEFENCE, _creature.isRaid() ? _creature.getTemplate().getBasePDef() * NpcConfig.RAID_PDEFENCE_MULTIPLIER : _creature.getTemplate().getBasePDef(), target, null);
+				val = ClassBalanceConfig.PVP_PHYSICAL_ATTACK_DEFENCE_MULTIPLIERS[_creature.asPlayer().getPlayerClass().getId()] * calcStat(Stat.POWER_DEFENCE, _creature.isRaid() ? _creature.getTemplate().getBasePDef() * NpcConfig.RAID_PDEFENCE_MULTIPLIER : _creature.getTemplate().getBasePDef(), target, null);
 			}
-			
-			return ClassBalanceConfig.PVE_PHYSICAL_ATTACK_DEFENCE_MULTIPLIERS[_creature.asPlayer().getPlayerClass().getId()] * calcStat(Stat.POWER_DEFENCE, _creature.isRaid() ? _creature.getTemplate().getBasePDef() * NpcConfig.RAID_PDEFENCE_MULTIPLIER : _creature.getTemplate().getBasePDef(), target, null);
+			else
+			{
+				val = ClassBalanceConfig.PVE_PHYSICAL_ATTACK_DEFENCE_MULTIPLIERS[_creature.asPlayer().getPlayerClass().getId()] * calcStat(Stat.POWER_DEFENCE, _creature.isRaid() ? _creature.getTemplate().getBasePDef() * NpcConfig.RAID_PDEFENCE_MULTIPLIER : _creature.getTemplate().getBasePDef(), target, null);
+			}
 		}
-		
-		return calcStat(Stat.POWER_DEFENCE, _creature.isRaid() ? _creature.getTemplate().getBasePDef() * NpcConfig.RAID_PDEFENCE_MULTIPLIER : _creature.getTemplate().getBasePDef(), target, null);
+		else
+		{
+			val = calcStat(Stat.POWER_DEFENCE, _creature.isRaid() ? _creature.getTemplate().getBasePDef() * NpcConfig.RAID_PDEFENCE_MULTIPLIER : _creature.getTemplate().getBasePDef(), target, null);
+		}
+
+		return (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS && _creature.isPlayer()) ? val * PlayerStatMultipliersConfig.PLAYER_PDEF_MULTIPLIER : val;
 	}
 	
 	/**

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../xsd/items.xsd">
+	<item id="90000" type="EtcItem" name="Silver Medal">
+		<set name="icon" val="icon.etc_magic_coin_silver_i00" />
+		<set name="default_action" val="NONE" />
+		<set name="immediate_effect" val="true" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="1" />
+		<set name="is_stackable" val="true" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="true" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+	</item>
+	<item id="90001" type="EtcItem" name="Gold Medal">
+		<set name="icon" val="icon.etc_magic_coin_gold_i00" />
+		<set name="default_action" val="NONE" />
+		<set name="immediate_effect" val="true" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="1" />
+		<set name="is_stackable" val="true" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="true" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+	</item>
+</list>

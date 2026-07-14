@@ -149,15 +149,75 @@
 	</item>
 	<item>
 		<!-- Adena -->
+		<ingredient count="20000" id="57" />
+		<!-- Wooden Arrow (No Grade) -->
+		<production count="2000" id="17" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="50000" id="57" />
+		<!-- Bone Arrow (D-Grade) -->
+		<production count="2000" id="1341" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="100000" id="57" />
+		<!-- Steel Arrow (C-Grade) -->
+		<production count="2000" id="1342" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="150000" id="57" />
+		<!-- Silver Arrow (B-Grade) -->
+		<production count="2000" id="1343" />
+	</item>
+	<item>
+		<!-- Adena -->
 		<ingredient count="200000" id="57" />
-		<!-- Mithril Arrow -->
+		<!-- Mithril Arrow (A-Grade) -->
 		<production count="2000" id="1344" />
 	</item>
 	<item>
 		<!-- Adena -->
 		<ingredient count="400000" id="57" />
-		<!-- Shining Arrow -->
+		<!-- Shining Arrow (S-Grade) -->
 		<production count="2000" id="1345" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="20000" id="57" />
+		<!-- Wooden Bolt (No Grade) -->
+		<production count="2000" id="9632" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="50000" id="57" />
+		<!-- Bone Bolt (D-Grade) -->
+		<production count="2000" id="9633" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="100000" id="57" />
+		<!-- Steel Bolt (C-Grade) -->
+		<production count="2000" id="9634" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="150000" id="57" />
+		<!-- Silver Bolt (B-Grade) -->
+		<production count="2000" id="9635" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="200000" id="57" />
+		<!-- Mithril Bolt (A-Grade) -->
+		<production count="2000" id="9636" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="400000" id="57" />
+		<!-- Shining Bolt (S-Grade) -->
+		<production count="2000" id="9637" />
 	</item>
 	<item>
 		<!-- Adena -->

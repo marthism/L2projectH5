@@ -119,6 +119,7 @@ public class AutoPlay implements IVoicedCommandHandler
 		if (active)
 		{
 			AutoPlayTaskManager.getInstance().startAutoPlay(player);
+			AutoUseTaskManager.getInstance().startAutoUseTask(player);
 		}
 	};
 
@@ -134,7 +135,7 @@ public class AutoPlay implements IVoicedCommandHandler
 		player.getVariables().setIntegerList(PlayerVariables.AUTO_USE_BUFFS, new ArrayList<>(player.getAutoUseSettings().getAutoBuffs()));
 		player.getVariables().setIntegerList(PlayerVariables.AUTO_USE_SKILLS, new ArrayList<>(player.getAutoUseSettings().getAutoSkills()));
 
-		final int potionId = player.getVariables().getInt(PlayerVariables.AUTO_USE_POTION, 0);
+		final int potionId = player.getAutoUseSettings().getAutoPotionItem();
 		if (potionId < 1)
 		{
 			player.getVariables().remove(PlayerVariables.AUTO_USE_POTION);

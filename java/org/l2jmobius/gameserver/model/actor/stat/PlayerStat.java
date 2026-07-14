@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.l2jmobius.gameserver.config.GeneralConfig;
 import org.l2jmobius.gameserver.config.PlayerConfig;
 import org.l2jmobius.gameserver.config.RatesConfig;
+import org.l2jmobius.gameserver.config.custom.PlayerStatMultipliersConfig;
 import org.l2jmobius.gameserver.data.holders.PetLevelData;
 import org.l2jmobius.gameserver.data.xml.ExperienceData;
 import org.l2jmobius.gameserver.data.xml.PetDataTable;
@@ -527,7 +528,11 @@ public class PlayerStat extends PlayableStat
 	{
 		// Get the Max CP (base+modifier) of the Player
 		final Player player = getActiveChar();
-		final int val = (player == null) ? 1 : (int) calcStat(Stat.MAX_CP, player.getTemplate().getBaseCpMax(player.getLevel()));
+		int val = (player == null) ? 1 : (int) calcStat(Stat.MAX_CP, player.getTemplate().getBaseCpMax(player.getLevel()));
+		if (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS)
+		{
+			val = (int) (val * PlayerStatMultipliersConfig.PLAYER_CP_MULTIPLIER);
+		}
 		if (val != _oldMaxCp)
 		{
 			_oldMaxCp = val;
@@ -551,7 +556,11 @@ public class PlayerStat extends PlayableStat
 	{
 		// Get the Max HP (base+modifier) of the Player
 		final Player player = getActiveChar();
-		final int val = (player == null) ? 1 : (int) calcStat(Stat.MAX_HP, player.getTemplate().getBaseHpMax(player.getLevel()));
+		int val = (player == null) ? 1 : (int) calcStat(Stat.MAX_HP, player.getTemplate().getBaseHpMax(player.getLevel()));
+		if (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS)
+		{
+			val = (int) (val * PlayerStatMultipliersConfig.PLAYER_HP_MULTIPLIER);
+		}
 		if (val != _oldMaxHp)
 		{
 			_oldMaxHp = val;
@@ -575,7 +584,11 @@ public class PlayerStat extends PlayableStat
 	{
 		// Get the Max MP (base+modifier) of the Player
 		final Player player = getActiveChar();
-		final int val = (player == null) ? 1 : (int) calcStat(Stat.MAX_MP, player.getTemplate().getBaseMpMax(player.getLevel()));
+		int val = (player == null) ? 1 : (int) calcStat(Stat.MAX_MP, player.getTemplate().getBaseMpMax(player.getLevel()));
+		if (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS)
+		{
+			val = (int) (val * PlayerStatMultipliersConfig.PLAYER_MP_MULTIPLIER);
+		}
 		if (val != _oldMaxMp)
 		{
 			_oldMaxMp = val;

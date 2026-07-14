@@ -50,8 +50,11 @@ public class AutoPlayTaskManager
 {
 	private static final Set<Set<Player>> POOLS = ConcurrentHashMap.newKeySet();
 	private static final Map<Player, Integer> IDLE_COUNT = new ConcurrentHashMap<>();
+	private static final Map<Player, Long> NO_TARGET_SINCE = new ConcurrentHashMap<>();
+	private static final Set<Player> AUTO_LONG_RANGE = ConcurrentHashMap.newKeySet();
 	private static final int POOL_SIZE = 200;
 	private static final int TASK_DELAY = 700;
+	private static final long NO_TARGET_RANGE_SWITCH_DELAY = 5000;
 	private static final Integer AUTO_ATTACK_ACTION = 2;
 	
 	protected AutoPlayTaskManager()
@@ -127,6 +130,13 @@ public class AutoPlayTaskManager
 						
 						// Clear target.
 						player.setTarget(null);
+
+						// Revert to short range after killing the target that triggered an automatic long range switch.
+						if (creature.isAlikeDead() && AUTO_LONG_RANGE.remove(player))
+						{
+							player.getAutoPlaySettings().setShortRange(true);
+							NO_TARGET_SINCE.remove(player);
+						}
 					}
 					else if ((creature.getTarget() == player) || (creature.getTarget() == null))
 					{
@@ -265,8 +275,9 @@ public class AutoPlayTaskManager
 				}
 				else
 				{
-					double closestDistance = Double.MAX_VALUE;
-					TARGET: for (Creature nearby : World.getInstance().getVisibleObjectsInRange(player, Creature.class, player.getAutoPlaySettings().isShortRange() && (targetMode != 2 /* Characters */) ? AutoPlayConfig.AUTO_PLAY_SHORT_RANGE : AutoPlayConfig.AUTO_PLAY_LONG_RANGE))
+					final boolean preferNearest = player.getAutoPlaySettings().isShortRange() || (targetMode == 2 /* Characters */);
+					double bestDistance = preferNearest ? Double.MAX_VALUE : -1;
+					TARGET: for (Creature nearby : World.getInstance().getVisibleObjectsInRange(player, Creature.class, preferNearest ? AutoPlayConfig.AUTO_PLAY_SHORT_RANGE : AutoPlayConfig.AUTO_PLAY_LONG_RANGE))
 					{
 						// Skip unavailable creatures.
 						if ((nearby == null) || nearby.isAlikeDead())
@@ -290,10 +301,10 @@ public class AutoPlayTaskManager
 						if ((Math.abs(player.getZ() - nearby.getZ()) < 800) && GeoEngine.getInstance().canSeeTarget(player, nearby) && GeoEngine.getInstance().canMoveToTarget(player.getX(), player.getY(), player.getZ(), nearby.getX(), nearby.getY(), nearby.getZ(), player.getInstanceId()))
 						{
 							final double creatureDistance = player.calculateDistance2D(nearby);
-							if (creatureDistance < closestDistance)
+							if (preferNearest ? (creatureDistance < bestDistance) : (creatureDistance > bestDistance))
 							{
 								creature = nearby;
-								closestDistance = creatureDistance;
+								bestDistance = creatureDistance;
 							}
 						}
 					}
@@ -302,8 +313,9 @@ public class AutoPlayTaskManager
 				// New target was assigned.
 				if (creature != null)
 				{
+					NO_TARGET_SINCE.remove(player);
 					player.setTarget(creature);
-					
+
 					// We take granted that mage classes do not auto hit.
 					if (isMageCaster(player))
 					{
@@ -311,6 +323,17 @@ public class AutoPlayTaskManager
 					}
 					
 					player.getAI().setIntention(Intention.ATTACK, creature);
+				}
+				else if (player.getAutoPlaySettings().isShortRange())
+				{
+					// No target found while hunting on short range; escalate to long range after a while.
+					final long since = NO_TARGET_SINCE.computeIfAbsent(player, p -> System.currentTimeMillis());
+					if ((System.currentTimeMillis() - since) >= NO_TARGET_RANGE_SWITCH_DELAY)
+					{
+						player.getAutoPlaySettings().setShortRange(false);
+						AUTO_LONG_RANGE.add(player);
+						NO_TARGET_SINCE.remove(player);
+					}
 				}
 			}
 		}
@@ -393,11 +416,16 @@ public class AutoPlayTaskManager
 				}
 				
 				IDLE_COUNT.remove(player);
+				NO_TARGET_SINCE.remove(player);
+				if (AUTO_LONG_RANGE.remove(player))
+				{
+					player.getAutoPlaySettings().setShortRange(true);
+				}
 				return;
 			}
 		}
 	}
-	
+
 	public static AutoPlayTaskManager getInstance()
 	{
 		return SingletonHolder.INSTANCE;
