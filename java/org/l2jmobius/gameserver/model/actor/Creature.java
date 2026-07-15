@@ -51,6 +51,7 @@ import org.l2jmobius.gameserver.config.custom.CaptchaConfig;
 import org.l2jmobius.gameserver.config.custom.ChampionMonstersConfig;
 import org.l2jmobius.gameserver.config.custom.ClassBalanceConfig;
 import org.l2jmobius.gameserver.config.custom.FakePlayersConfig;
+import org.l2jmobius.gameserver.config.custom.PlayerBowReuseConfig;
 import org.l2jmobius.gameserver.data.enums.CategoryType;
 import org.l2jmobius.gameserver.data.holders.AccessLevel;
 import org.l2jmobius.gameserver.data.xml.CategoryData;
@@ -5654,8 +5655,14 @@ public abstract class Creature extends WorldObject
 		{
 			return 0;
 		}
-		
-		return (int) ((weapon.getReuseDelay() * 333) / _stat.getPAtkSpd());
+
+		final int reuseTime = (int) ((weapon.getReuseDelay() * 333) / _stat.getPAtkSpd());
+		if (PlayerBowReuseConfig.ENABLE_PLAYER_BOW_REUSE_REDUCTION && isPlayer() && weapon.isRange())
+		{
+			return (int) (reuseTime * PlayerBowReuseConfig.PLAYER_BOW_REUSE_MULTIPLIER);
+		}
+
+		return reuseTime;
 	}
 	
 	/**

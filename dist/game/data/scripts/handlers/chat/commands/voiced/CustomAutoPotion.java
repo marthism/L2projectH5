@@ -161,9 +161,9 @@ public class CustomAutoPotion implements IVoicedCommandHandler, Runnable
 		final NpcHtmlMessage html = new NpcHtmlMessage();
 		final StringBuilder content = new StringBuilder(900);
 		content.append("<html noscrollbar><title>Auto Potion</title><body><center>");
-		content.append("<table width=270 cellpadding=0 cellspacing=0 bgcolor=000000><tr><td align=center><font color=LEVEL>AUTO POTION</font></td></tr></table>");
-		content.append("<table width=270 cellpadding=2 cellspacing=0><tr><td width=190>Ativado</td><td width=80 align=right><button value=\"").append(enabled ? "ON" : "OFF").append("\" action=\"bypass voice .autopotion toggle\" width=70 height=20 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"></td></tr></table>");
-		content.append("<table width=270 cellpadding=6 cellspacing=0><tr>");
+		content.append("<table width=202 cellpadding=0 cellspacing=0 bgcolor=000000><tr><td align=center><font color=LEVEL>AUTO POTION</font></td></tr></table>");
+		content.append("<table width=202 cellpadding=2 cellspacing=0><tr><td width=142>Ativado</td><td width=60 align=right><button value=\"").append(enabled ? "ON" : "OFF").append("\" action=\"bypass voice .autopotion toggle\" width=52 height=20 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"></td></tr></table>");
+		content.append("<table width=202 cellpadding=4 cellspacing=0><tr>");
 		appendPotionColumn(content, player, "HP", "hp");
 		appendPotionColumn(content, player, "MP", "mp");
 		appendPotionColumn(content, player, "CP", "cp");
@@ -171,8 +171,8 @@ public class CustomAutoPotion implements IVoicedCommandHandler, Runnable
 		if (editingType != null)
 		{
 			final int current = percent(player, percentKey(editingType), AutoPotionsConfig.AUTO_HP_PERCENTAGE);
-			content.append("<table width=270 cellpadding=2 cellspacing=0><tr><td align=center>Ativar ").append(editingType.toUpperCase()).append(" abaixo de <edit var=\"pct\" width=30 height=15> % (atual: <font color=LEVEL>").append(current).append("%</font>)</td></tr>");
-			content.append("<tr><td align=center><button value=\"Salvar\" action=\"bypass voice .autopotion percent ").append(editingType).append(" $pct\" width=80 height=22 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"></td></tr></table>");
+			content.append("<table width=202 cellpadding=2 cellspacing=0><tr><td align=center>Ativar ").append(editingType.toUpperCase()).append(" abaixo de <edit var=\"pct\" width=24 height=15> % (atual: <font color=LEVEL>").append(current).append("%</font>)</td></tr>");
+			content.append("<tr><td align=center><button value=\"Salvar\" action=\"bypass voice .autopotion percent ").append(editingType).append(" $pct\" width=60 height=22 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"></td></tr></table>");
 		}
 		content.append("</center></body></html>");
 		html.setHtml(content.toString());
@@ -183,11 +183,11 @@ public class CustomAutoPotion implements IVoicedCommandHandler, Runnable
 	{
 		final Item item = potionItem(player, type);
 		final String icon = item == null ? "icon.etc_reagent_white_i00" : item.getTemplate().getIcon();
-		content.append("<td width=90 align=center>");
+		content.append("<td width=67 align=center>");
 		content.append("<font color=LEVEL>").append(label).append("</font><br1>");
 		content.append("<img src=\"").append(icon).append("\" width=32 height=32><br1>");
-		content.append("<button value=\"Selecionar\" action=\"bypass voice .autopotion select ").append(type).append("\" width=80 height=20 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"><br1>");
-		content.append("<button value=\"Editar\" action=\"bypass voice .autopotion editpanel ").append(type).append("\" width=80 height=20 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\">");
+		content.append("<button value=\"Selecionar\" action=\"bypass voice .autopotion select ").append(type).append("\" width=60 height=20 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"><br1>");
+		content.append("<button value=\"Editar\" action=\"bypass voice .autopotion editpanel ").append(type).append("\" width=60 height=20 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\">");
 		content.append("</td>");
 	}
 
@@ -199,7 +199,7 @@ public class CustomAutoPotion implements IVoicedCommandHandler, Runnable
 			return;
 		}
 		final NpcHtmlMessage html = new NpcHtmlMessage();
-		final StringBuilder content = new StringBuilder("<html noscrollbar><title>Auto Potion</title><body><center><table width=190 bgcolor=000000><tr><td align=center><font color=LEVEL>Selecionar pocao ").append(type.toUpperCase()).append("</font></td></tr></table><br>");
+		final StringBuilder content = new StringBuilder("<html noscrollbar><title>Auto Potion</title><body><center><table width=142 bgcolor=000000><tr><td align=center><font color=LEVEL>Selecionar pocao ").append(type.toUpperCase()).append("</font></td></tr></table><br>");
 		final List<Integer> potions = availablePotions(player, type);
 		if (potions.isEmpty())
 		{
@@ -210,10 +210,10 @@ public class CustomAutoPotion implements IVoicedCommandHandler, Runnable
 			for (int itemId : potions)
 			{
 				final Item item = player.getInventory().getItemByItemId(itemId);
-				content.append("<button value=\"").append(item.getName()).append("\" action=\"bypass voice .autopotion choose ").append(type).append(" ").append(itemId).append("\" width=150 height=22 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"><br1>");
+				content.append("<button value=\"").append(item.getName()).append("\" action=\"bypass voice .autopotion choose ").append(type).append(" ").append(itemId).append("\" width=112 height=22 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"><br1>");
 			}
 		}
-		content.append("<br><button value=\"Voltar\" action=\"bypass voice .autopotion\" width=100 height=22 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"></center></body></html>");
+		content.append("<br><button value=\"Voltar\" action=\"bypass voice .autopotion\" width=75 height=22 back=\"L2UI_CT1.Button_DF\" fore=\"L2UI_CT1.Button_DF\"></center></body></html>");
 		html.setHtml(content.toString());
 		player.sendPacket(html);
 	}

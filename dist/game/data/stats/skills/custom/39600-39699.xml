@@ -158,4 +158,25 @@
 			</effect>
 		</effects>
 	</skill>
+
+	<!-- Tattoo of Donator - passive bonus granted while the tattoo is equipped. -->
+	<skill id="39620" levels="1" name="Tattoo of Donator">
+		<icon>icon.skill1068</icon>
+		<operateType>P</operateType>
+		<targetType>SELF</targetType>
+		<effects>
+			<effect name="Buff">
+				<mul stat="pAtk">1.30</mul>
+				<mul stat="mAtk">1.30</mul>
+				<mul stat="pAtkSpd">1.20</mul>
+				<mul stat="mAtkSpd">1.20</mul>
+				<mul stat="pDef">1.20</mul>
+				<mul stat="mDef">1.20</mul>
+				<mul stat="maxHp">1.15</mul>
+				<mul stat="maxMp">1.15</mul>
+				<add stat="critDmgAdd">100</add>
+				<add stat="accCombat">50</add>
+			</effect>
+		</effects>
+	</skill>
 </list>

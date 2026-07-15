@@ -29,6 +29,7 @@ import org.l2jmobius.gameserver.data.xml.PetSkillData;
 import org.l2jmobius.gameserver.handler.IItemHandler;
 import org.l2jmobius.gameserver.handler.ItemHandler;
 import org.l2jmobius.gameserver.model.WorldObject;
+import org.l2jmobius.gameserver.model.actor.Creature;
 import org.l2jmobius.gameserver.model.actor.Playable;
 import org.l2jmobius.gameserver.model.actor.Player;
 import org.l2jmobius.gameserver.model.actor.Summon;
@@ -342,7 +343,7 @@ public class AutoUseTaskManager
 						}
 						
 						// Check negative effect skill target.
-						if ((target == null) || target.asCreature().isDead())
+						if ((target == null) || !target.isCreature() || target.asCreature().isDead())
 						{
 							// Remove queued skill.
 							if (player.getQueuedSkill() != null)
@@ -370,17 +371,23 @@ public class AutoUseTaskManager
 						
 						// Increment skill order.
 						player.getAutoUseSettings().incrementSkillOrder();
-						
+
 						// Skill use check.
 						final Playable caster = pet != null ? pet : player;
 						if (!canUseMagic(caster, target, skill))
 						{
 							continue SKILLS;
 						}
-						
+
+						// Do not waste a turn recasting a buff/debuff that is already up; let the rotation reach the attack skills instead.
+						if (isBuffOrDebuffAlreadyApplied(caster, target, skill))
+						{
+							continue SKILLS;
+						}
+
 						// Use the skill.
 						caster.useMagic(skill, true, false);
-						
+
 						break SKILLS;
 					}
 				}
@@ -419,7 +426,36 @@ public class AutoUseTaskManager
 			
 			return buffInfo == null;
 		}
-		
+
+		// Checks whether a buff/debuff skill queued in the general auto-skill rotation is already up on its proper side (caster for buffs, target for debuffs), so the rotation does not waste ticks recasting it instead of reaching attack skills. Pure attack skills (no abnormal type) always return false here.
+		private boolean isBuffOrDebuffAlreadyApplied(Playable caster, WorldObject target, Skill skill)
+		{
+			if (skill.getAbnormalType() == AbnormalType.NONE)
+			{
+				return false;
+			}
+
+			final Creature effectHolder = skill.isDebuff() ? (((target != null) && target.isCreature()) ? target.asCreature() : null) : caster;
+			if (effectHolder == null)
+			{
+				return false;
+			}
+
+			final BuffInfo buffInfo = effectHolder.getEffectList().getBuffInfoBySkillId(skill.getId());
+			final BuffInfo abnormalBuffInfo = effectHolder.getEffectList().getBuffInfoByAbnormalType(skill.getAbnormalType());
+			if (abnormalBuffInfo == null)
+			{
+				return false;
+			}
+
+			if (buffInfo != null)
+			{
+				return !((abnormalBuffInfo.getSkill().getId() == buffInfo.getSkill().getId()) && ((buffInfo.getTime() <= REUSE_MARGIN_TIME) || (buffInfo.getSkill().getLevel() < skill.getLevel())));
+			}
+
+			return !((abnormalBuffInfo.getSkill().getAbnormalLevel() < skill.getAbnormalLevel()) || abnormalBuffInfo.isAbnormalType(AbnormalType.NONE));
+		}
+
 		private boolean canUseMagic(Playable playable, WorldObject target, Skill skill)
 		{
 			if ((skill.getItemConsumeCount() > 0) && (playable.getInventory().getInventoryItemCount(skill.getItemConsumeId(), -1) < skill.getItemConsumeCount()))

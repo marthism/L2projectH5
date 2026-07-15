@@ -26,8 +26,12 @@ import org.l2jmobius.gameserver.config.NpcConfig;
 import org.l2jmobius.gameserver.config.PlayerConfig;
 import org.l2jmobius.gameserver.config.custom.ChampionMonstersConfig;
 import org.l2jmobius.gameserver.config.custom.ClassBalanceConfig;
+import org.l2jmobius.gameserver.config.custom.MonsterDefenseReductionConfig;
+import org.l2jmobius.gameserver.config.custom.PlayerFighterAtkSpdConfig;
 import org.l2jmobius.gameserver.config.custom.PlayerStatMultipliersConfig;
+import org.l2jmobius.gameserver.managers.ZoneManager;
 import org.l2jmobius.gameserver.model.actor.Creature;
+import org.l2jmobius.gameserver.model.actor.Player;
 import org.l2jmobius.gameserver.model.actor.transform.Transform;
 import org.l2jmobius.gameserver.model.item.holders.Elementals;
 import org.l2jmobius.gameserver.model.item.instance.Item;
@@ -35,13 +39,15 @@ import org.l2jmobius.gameserver.model.skill.Skill;
 import org.l2jmobius.gameserver.model.stats.Calculator;
 import org.l2jmobius.gameserver.model.stats.MoveType;
 import org.l2jmobius.gameserver.model.stats.Stat;
+import org.l2jmobius.gameserver.model.zone.ZoneType;
 import org.l2jmobius.gameserver.model.stats.TraitType;
 import org.l2jmobius.gameserver.model.zone.ZoneId;
 
 public class CreatureStat
 {
 	private static final int DIVINE_INSPIRATION = 1405;
-	
+	private static ZoneType MONSTER_DEFENSE_REDUCTION_EXCLUDED_ZONE;
+
 	private final Creature _creature;
 	private long _exp = 0;
 	private long _sp = 0;
@@ -389,7 +395,33 @@ public class CreatureStat
 		
 		// Calculate modifiers Magic Attack
 		final double val = calcStat(Stat.MAGIC_DEFENCE, defence, target, skill);
-		return (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS && _creature.isPlayer()) ? val * PlayerStatMultipliersConfig.PLAYER_MDEF_MULTIPLIER : val;
+		double result = (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS && _creature.isPlayer()) ? val * PlayerStatMultipliersConfig.PLAYER_MDEF_MULTIPLIER : val;
+		if (isMonsterDefenseReductionApplicable())
+		{
+			result *= MonsterDefenseReductionConfig.MONSTER_MDEF_REDUCTION_MULTIPLIER;
+		}
+
+		return result;
+	}
+
+	/**
+	 * @return true if this creature is a non-raid monster outside the excluded zone and monster defense reduction is enabled.
+	 */
+	private boolean isMonsterDefenseReductionApplicable()
+	{
+		if (!MonsterDefenseReductionConfig.ENABLE_MONSTER_DEFENSE_REDUCTION || !_creature.isMonster() || _creature.isRaid())
+		{
+			return false;
+		}
+
+		ZoneType excludedZone = MONSTER_DEFENSE_REDUCTION_EXCLUDED_ZONE;
+		if (excludedZone == null)
+		{
+			excludedZone = ZoneManager.getInstance().getZoneById(MonsterDefenseReductionConfig.EXCLUDED_ZONE_ID);
+			MONSTER_DEFENSE_REDUCTION_EXCLUDED_ZONE = excludedZone;
+		}
+
+		return (excludedZone == null) || !excludedZone.isInsideZone(_creature);
 	}
 	
 	/**
@@ -579,7 +611,13 @@ public class CreatureStat
 			bonusAtk = ChampionMonstersConfig.CHAMPION_SPD_ATK;
 		}
 		
-		return Math.round(calcStat(Stat.POWER_ATTACK_SPEED, _creature.getTemplate().getBasePAtkSpd() * bonusAtk, null, null));
+		final double val = calcStat(Stat.POWER_ATTACK_SPEED, _creature.getTemplate().getBasePAtkSpd() * bonusAtk, null, null);
+		if (PlayerFighterAtkSpdConfig.ENABLE_PLAYER_FIGHTER_ATK_SPD_BONUS && _creature.isPlayer() && !((Player) _creature).isMageClass())
+		{
+			return Math.round(val + PlayerFighterAtkSpdConfig.PLAYER_FIGHTER_ATK_SPD_BONUS);
+		}
+
+		return Math.round(val);
 	}
 	
 	/**
@@ -605,9 +643,15 @@ public class CreatureStat
 			val = calcStat(Stat.POWER_DEFENCE, _creature.isRaid() ? _creature.getTemplate().getBasePDef() * NpcConfig.RAID_PDEFENCE_MULTIPLIER : _creature.getTemplate().getBasePDef(), target, null);
 		}
 
-		return (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS && _creature.isPlayer()) ? val * PlayerStatMultipliersConfig.PLAYER_PDEF_MULTIPLIER : val;
+		double result = (PlayerStatMultipliersConfig.ENABLE_PLAYER_STAT_MULTIPLIERS && _creature.isPlayer()) ? val * PlayerStatMultipliersConfig.PLAYER_PDEF_MULTIPLIER : val;
+		if (isMonsterDefenseReductionApplicable())
+		{
+			result *= MonsterDefenseReductionConfig.MONSTER_PDEF_REDUCTION_MULTIPLIER;
+		}
+
+		return result;
 	}
-	
+
 	/**
 	 * @return the Physical Attack range (base+modifier) of the Creature.
 	 */

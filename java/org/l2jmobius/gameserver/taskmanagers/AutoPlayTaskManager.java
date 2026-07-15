@@ -362,11 +362,11 @@ public class AutoPlayTaskManager
 				}
 				case 3: // NPC
 				{
-					return creature.isNpc() && !creature.isMonster() && !creature.isInsideZone(ZoneId.PEACE);
+					return creature.isNpc() && !creature.isMonster() && !creature.isInsideZone(ZoneId.PEACE) && creature.isAutoAttackable(player);
 				}
 				default: // Any Target
 				{
-					return (creature.isNpc() && !creature.isInsideZone(ZoneId.PEACE)) || (creature.isPlayable() && creature.isAutoAttackable(player));
+					return (creature.isNpc() && !creature.isInsideZone(ZoneId.PEACE) && creature.isAutoAttackable(player)) || (creature.isPlayable() && creature.isAutoAttackable(player));
 				}
 			}
 		}

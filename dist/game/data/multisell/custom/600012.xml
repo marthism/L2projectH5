@@ -11,6 +11,12 @@
 	</item>
 	<item>
 		<!-- Adena -->
+		<ingredient count="187500" id="57" />
+		<!-- Blessed Scroll of Escape -->
+		<production count="1" id="1538" />
+	</item>
+	<item>
+		<!-- Adena -->
 		<ingredient count="2500" id="57" />
 		<!-- Scroll of Resurrection -->
 		<production count="1" id="737" />

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/multisell.xsd">
+	<npcs>
+		<npc>-1</npc> <!-- CB -->
+	</npcs>
+	<item>
+		<!-- Gold Bar -->
+		<ingredient count="1" id="3470" />
+		<!-- Adena -->
+		<production count="1000000000" id="57" />
+	</item>
+	<item>
+		<!-- Adena -->
+		<ingredient count="1000000000" id="57" />
+		<!-- Gold Bar -->
+		<production count="1" id="3470" />
+	</item>
+	<item>
+		<!-- Event - Glittering Medal -->
+		<ingredient count="1" id="6393" />
+		<!-- Ancient Adena -->
+		<production count="5" id="5575" />
+	</item>
+	<item>
+		<!-- Event - Medal -->
+		<ingredient count="1" id="6392" />
+		<!-- Ancient Adena -->
+		<production count="1" id="5575" />
+	</item>
+	<item>
+		<!-- Gold Bar -->
+		<ingredient count="1" id="3470" />
+		<!-- Medal of Honor -->
+		<production count="1" id="4674" />
+	</item>
+	<item>
+		<!-- Gold Bar -->
+		<ingredient count="1" id="3470" />
+		<!-- Medal of Friendship -->
+		<production count="1" id="4675" />
+	</item>
+	<item>
+		<!-- Gold Bar -->
+		<ingredient count="1" id="3470" />
+		<!-- Medal of Victory -->
+		<production count="1" id="4676" />
+	</item>
+</list>
