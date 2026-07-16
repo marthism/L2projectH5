@@ -857,14 +857,7 @@ public class VillageMaster extends Folk
 			
 			if (player.getRace() == Race.KAMAEL)
 			{
-				for (PlayerClass cid : PlayerClass.values())
-				{
-					if (cid.getRace() != Race.KAMAEL)
-					{
-						subclasses.remove(cid);
-					}
-				}
-				
+				// Mobius: Custom - Kamael are no longer restricted to Kamael-only subclasses.
 				if (player.getAppearance().isFemale())
 				{
 					subclasses.remove(PlayerClass.MALE_SOULBREAKER);

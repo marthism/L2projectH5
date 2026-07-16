@@ -5809,7 +5809,7 @@
 		<targetType>SELF</targetType>
 		<abnormalLevel>2</abnormalLevel>
 		<abnormalTime>120</abnormalTime>
-		<abnormalType>HERO_BUFF</abnormalType>
+		<abnormalType>HERO_BUFF_BERSERKER</abnormalType>
 		<blockedInOlympiad>true</blockedInOlympiad>
 		<effectPoint>676</effectPoint>
 		<hitTime>1000</hitTime>

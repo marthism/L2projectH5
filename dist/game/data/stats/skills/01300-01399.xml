@@ -4336,7 +4336,7 @@
 		<targetType>CLAN</targetType>
 		<abnormalLevel>1</abnormalLevel>
 		<abnormalTime>120</abnormalTime>
-		<abnormalType>HERO_BUFF</abnormalType>
+		<abnormalType>HERO_BUFF_VALOR</abnormalType>
 		<affectRange>1000</affectRange>
 		<blockedInOlympiad>true</blockedInOlympiad>
 		<effectPoint>676</effectPoint>

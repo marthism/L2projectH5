@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list enabled="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/spawns.xsd">
+	<spawn name="AvantGardeTowns">
+		<npc id="32323" x="82698" y="148638" z="-3473" heading="0" respawnDelay="60" /> <!-- Avant-Garde: Giran -->
+		<npc id="32323" x="147450" y="27064" z="-2208" heading="0" respawnDelay="60" /> <!-- Avant-Garde: Aden -->
+		<npc id="32323" x="16354" y="142848" z="-2680" heading="0" respawnDelay="60" /> <!-- Avant-Garde: Dion -->
+		<npc id="32323" x="82008" y="53874" z="-1472" heading="0" respawnDelay="60" /> <!-- Avant-Garde: Oren -->
+		<npc id="32323" x="-14143" y="123176" z="-3096" heading="0" respawnDelay="60" /> <!-- Avant-Garde: Gludio -->
+	</spawn>
+</list>

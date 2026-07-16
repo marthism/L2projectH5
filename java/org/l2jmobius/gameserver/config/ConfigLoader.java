@@ -33,6 +33,7 @@ import org.l2jmobius.gameserver.config.custom.ClassBalanceConfig;
 import org.l2jmobius.gameserver.config.custom.CommunityBoardConfig;
 import org.l2jmobius.gameserver.config.custom.CustomMailManagerConfig;
 import org.l2jmobius.gameserver.config.custom.DelevelManagerConfig;
+import org.l2jmobius.gameserver.config.custom.DropExclusionConfig;
 import org.l2jmobius.gameserver.config.custom.DualboxCheckConfig;
 import org.l2jmobius.gameserver.config.custom.FactionSystemConfig;
 import org.l2jmobius.gameserver.config.custom.FakePlayersConfig;
@@ -111,6 +112,7 @@ public class ConfigLoader
 		CommunityBoardConfig.load();
 		CustomMailManagerConfig.load();
 		DelevelManagerConfig.load();
+		DropExclusionConfig.load();
 		DualboxCheckConfig.load();
 		FactionSystemConfig.load();
 		FakePlayersConfig.load();

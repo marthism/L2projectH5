@@ -968,6 +968,7 @@ public class HomeBoard implements IParseBoardHandler
 							player.stopAllEffectsNotStayOnSubclassChange();
 							player.stopCubics();
 							player.setActiveClass(classIndex);
+							resetSubclassCertifications(player, classIndex);
 							player.sendMessage("Subclasse substituida por " + ClassListData.getInstance().getClass(newClassId).getClassName() + "!");
 						}
 						else
@@ -1110,6 +1111,47 @@ public class HomeBoard implements IParseBoardHandler
 		else
 		{
 			player.sendMessage("Certificacoes recebidas: " + String.join(", ", granted) + ".");
+		}
+	}
+
+	// Clears the per-slot certification tracking variables when a subclass in that slot is replaced,
+	// destroying any not-yet-consumed certificate item tied to the previous subclass. Without this,
+	// grantSubclassCertification() sees the slot as "already certified" and never grants certificates
+	// for the new subclass occupying it.
+	private static void resetSubclassCertifications(Player player, int classIndex)
+	{
+		final String[] variablePrefixes =
+		{
+			"EmergentAbility65-",
+			"EmergentAbility70-",
+			"ClassAbility75-",
+			"ClassAbility80-"
+		};
+
+		for (String prefix : variablePrefixes)
+		{
+			final String var = prefix + classIndex;
+			final String value = player.getVariables().getString(var, "0");
+			if (value.isEmpty() || value.equals("0"))
+			{
+				continue;
+			}
+
+			try
+			{
+				final int objectId = Integer.parseInt(value);
+				final Item certItem = player.getInventory().getItemByObjectId(objectId);
+				if (certItem != null)
+				{
+					player.destroyItem(ItemProcessType.DESTROY, certItem, null, false);
+				}
+			}
+			catch (NumberFormatException e)
+			{
+				// Value wasn't a plain item object id (e.g. already consumed into a skill); nothing to destroy.
+			}
+
+			player.getVariables().set(var, "0");
 		}
 	}
 
@@ -2133,7 +2175,7 @@ public class HomeBoard implements IParseBoardHandler
 		final int normalBooks = (int) player.getInventory().getInventoryItemCount(EnchantSkillGroupsData.NORMAL_ENCHANT_BOOK, -1);
 		final int blessedBooks = (int) player.getInventory().getInventoryItemCount(EnchantSkillGroupsData.SAFE_ENCHANT_BOOK, -1);
 		appendSkillEnchantModeRow(html, "Normal (reseta se falhar)", "NORMAL", skillId, route, normalBooks);
-		appendSkillEnchantModeRow(html, "Blessed (mantem nivel se falhar)", "BLESSED", skillId, route, blessedBooks);
+		appendSkillEnchantModeRow(html, "Safe/Mastery (mantem nivel se falhar)", "BLESSED", skillId, route, blessedBooks);
 
 		html.append("<tr><td height=8></td></tr>");
 		html.append("<tr><td align=center><button value=\"Comprar Codex\" action=\"bypass _bbsmultisell;600031,custom/main\" width=180 height=26 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
@@ -2149,6 +2191,20 @@ public class HomeBoard implements IParseBoardHandler
 			html.append("<td width=45 align=center><button value=\"x").append(qty).append("\" action=\"bypass _bbsskillenchant;run;").append(skillId).append(";").append(route).append(";").append(mode).append(";").append(qty).append("\" width=40 height=22 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		}
 		html.append("</tr></table></td></tr>");
+	}
+
+	// Custom success rate: 100% through +10 (whichever route), then -2% per level beyond +10.
+	// Applies equally to Normal and Blessed/Mastery attempts; the two modes only differ in what
+	// happens on a failed roll (Normal resets to base level, Blessed/Mastery just doesn't advance).
+	private static int calculateSkillEnchantRate(int targetLevel)
+	{
+		final int enchantPlus = targetLevel % 100;
+		if (enchantPlus <= 10)
+		{
+			return 100;
+		}
+
+		return Math.max(0, 100 - (2 * (enchantPlus - 10)));
 	}
 
 	private static String runSkillEnchant(Player player, int skillId, int route, String mode, int attempts)
@@ -2255,7 +2311,7 @@ public class HomeBoard implements IParseBoardHandler
 				break;
 			}
 
-			final int rate = esd.getRate(player);
+			final int rate = calculateSkillEnchantRate(target);
 			if (Rnd.get(100) <= rate)
 			{
 				player.addSkill(skill, true);
@@ -2298,8 +2354,8 @@ public class HomeBoard implements IParseBoardHandler
 	private static final int AUGMENTPICK_PAGE_SIZE = 15;
 	private static final int AUGMENTPICK_MAX_OPTION_ID = 30000;
 	private static final int AUGMENTPICK_MIN_SKILL_LEVEL = 10;
-	private static final int[] AUGMENTPICK_STAT_OPTIONS = { 24699, 24700, 24701, 24702 }; // STR, CON, INT, MEN +1.
-	private static final String[] AUGMENTPICK_STAT_NAMES = { "STR +1", "CON +1", "INT +1", "MEN +1" };
+	private static final int[] AUGMENTPICK_STAT_OPTIONS = { 24699, 24700, 24701, 24702, 24706, 24707 }; // STR, CON, INT, MEN, DEX, WIT +1.
+	private static final String[] AUGMENTPICK_STAT_NAMES = { "STR +1", "CON +1", "INT +1", "MEN +1", "DEX +1", "WIT +1" };
 	// Augmentation packs a stat option in the low slot (stat12) and the selected skill in the high slot
 	// (stat34). The player now explicitly chooses the +1 stat rather than receiving a hidden P.Def filler.
 	private static List<AugmentOptionEntry> augmentPickPassive;
@@ -2337,7 +2393,16 @@ public class HomeBoard implements IParseBoardHandler
 			{
 				continue;
 			}
-			if (option.hasPassiveSkill() && (option.getPassiveSkill().getLevel() >= AUGMENTPICK_MIN_SKILL_LEVEL))
+			// Activation (on-hit/on-crit/etc. proc chance) skills are checked first: some options
+			// combine a chance-based proc with a passive or active skill on the same entry, and the
+			// proc is the more specific/defining behavior, so it must not be masked by the other two.
+			if (option.hasActivationSkills() && (option.getActivationSkills().get(0).getSkill().getLevel() >= AUGMENTPICK_MIN_SKILL_LEVEL))
+			{
+				final OptionSkillHolder holder = option.getActivationSkills().get(0);
+				final Skill skill = holder.getSkill();
+				chance.add(new AugmentOptionEntry(id, skill.getName() + " Lv" + skill.getLevel() + " (chance " + holder.getChance() + "%, " + holder.getSkillType() + ")"));
+			}
+			else if (option.hasPassiveSkill() && (option.getPassiveSkill().getLevel() >= AUGMENTPICK_MIN_SKILL_LEVEL))
 			{
 				final Skill skill = option.getPassiveSkill();
 				passive.add(new AugmentOptionEntry(id, skill.getName() + " Lv" + skill.getLevel()));
@@ -2346,12 +2411,6 @@ public class HomeBoard implements IParseBoardHandler
 			{
 				final Skill skill = option.getActiveSkill();
 				active.add(new AugmentOptionEntry(id, skill.getName() + " Lv" + skill.getLevel()));
-			}
-			else if (option.hasActivationSkills() && (option.getActivationSkills().get(0).getSkill().getLevel() >= AUGMENTPICK_MIN_SKILL_LEVEL))
-			{
-				final OptionSkillHolder holder = option.getActivationSkills().get(0);
-				final Skill skill = holder.getSkill();
-				chance.add(new AugmentOptionEntry(id, skill.getName() + " Lv" + skill.getLevel() + " (chance " + holder.getChance() + "%, " + holder.getSkillType() + ")"));
 			}
 		}
 		augmentPickPassive = passive;

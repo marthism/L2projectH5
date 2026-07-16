@@ -128,6 +128,7 @@ import handlers.chat.commands.admin.AdminCreateItem;
 import handlers.chat.commands.admin.AdminCursedWeapons;
 import handlers.chat.commands.admin.AdminDebug;
 import handlers.chat.commands.admin.AdminDelete;
+import handlers.chat.commands.admin.AdminDestroyExcludedItems;
 import handlers.chat.commands.admin.AdminDestroyItems;
 import handlers.chat.commands.admin.AdminDisconnect;
 import handlers.chat.commands.admin.AdminDoorControl;
@@ -355,6 +356,7 @@ public class MasterHandler
 			AdminCursedWeapons.class,
 			AdminDebug.class,
 			AdminDelete.class,
+			AdminDestroyExcludedItems.class,
 			AdminDestroyItems.class,
 			AdminDisconnect.class,
 			AdminDoorControl.class,

@@ -53,6 +53,7 @@ import org.l2jmobius.gameserver.model.item.ItemTemplate;
 import org.l2jmobius.gameserver.model.item.holders.ItemHolder;
 import org.l2jmobius.gameserver.model.itemcontainer.Inventory;
 import org.l2jmobius.gameserver.model.skill.Skill;
+import org.l2jmobius.gameserver.util.DropExclusionUtil;
 import org.l2jmobius.gameserver.util.MathUtil;
 
 /**
@@ -686,22 +687,32 @@ public class NpcTemplate extends CreatureTemplate
 			if (_dropGroups != null)
 			{
 				groupDrops = calculateGroupDrops(victim, killer);
-				
-				if ((groupDrops != null) && victim.isMonster() && victim.asMonster().isSeeded())
+
+				if (groupDrops != null)
 				{
-					groupDrops.removeIf(i -> (i.getId() != 57 /* Adena */) && (i.getId() != 6361 /* Green Seal Stone */) && (i.getId() != 6362 /* Red Seal Stone */) && (i.getId() != 6360 /* Blue Seal Stone */));
+					groupDrops.removeIf(i -> DropExclusionUtil.isExcluded(i.getId()));
+
+					if (victim.isMonster() && victim.asMonster().isSeeded())
+					{
+						groupDrops.removeIf(i -> (i.getId() != 57 /* Adena */) && (i.getId() != 6361 /* Green Seal Stone */) && (i.getId() != 6362 /* Red Seal Stone */) && (i.getId() != 6360 /* Blue Seal Stone */));
+					}
 				}
 			}
-			
+
 			// calculate ungrouped drops
 			List<ItemHolder> ungroupedDrops = null;
 			if (_dropListDeath != null)
 			{
 				ungroupedDrops = calculateUngroupedDrops(dropType, victim, killer);
-				
-				if ((ungroupedDrops != null) && victim.isMonster() && victim.asMonster().isSeeded())
+
+				if (ungroupedDrops != null)
 				{
-					ungroupedDrops.removeIf(i -> (i.getId() != 57 /* Adena */) && (i.getId() != 6361 /* Green Seal Stone */) && (i.getId() != 6362 /* Red Seal Stone */) && (i.getId() != 6360 /* Blue Seal Stone */));
+					ungroupedDrops.removeIf(i -> DropExclusionUtil.isExcluded(i.getId()));
+
+					if (victim.isMonster() && victim.asMonster().isSeeded())
+					{
+						ungroupedDrops.removeIf(i -> (i.getId() != 57 /* Adena */) && (i.getId() != 6361 /* Green Seal Stone */) && (i.getId() != 6362 /* Red Seal Stone */) && (i.getId() != 6360 /* Blue Seal Stone */));
+					}
 				}
 			}
 			
@@ -725,7 +736,13 @@ public class NpcTemplate extends CreatureTemplate
 		}
 		else if ((dropType == DropType.SPOIL) && (_dropListSpoil != null))
 		{
-			return calculateUngroupedDrops(dropType, victim, killer);
+			final List<ItemHolder> spoilDrops = calculateUngroupedDrops(dropType, victim, killer);
+			if (spoilDrops != null)
+			{
+				spoilDrops.removeIf(i -> DropExclusionUtil.isExcluded(i.getId()));
+			}
+
+			return spoilDrops;
 		}
 		
 		// no drops
